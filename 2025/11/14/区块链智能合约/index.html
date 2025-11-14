@@ -1,0 +1,2213 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>区块链智能合约 | JiuCheng's BLOG</title><meta name="author" content="JiuCheng"><meta name="copyright" content="JiuCheng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="区块链智能合约欢迎来到Blockchain方向！在CTF里，这个方向主要侧重于智能合约安全，题目的主要形式是提供题目合约，要求进行合约审计并且找到合约中的漏洞并利用它达成某一目的（比如修改solved变量），当然还有其它的类型，比如提供字节码然后进行EVM字节码逆向，然后再利用合约漏洞等。 目前智能合约的主流语言是Solidity 文章参考：https:&#x2F;&#x2F;cauliweak9.github.io">
+<meta property="og:type" content="article">
+<meta property="og:title" content="区块链智能合约">
+<meta property="og:url" content="https://tgvhzg.github.io/2025/11/14/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/index.html">
+<meta property="og:site_name" content="JiuCheng&#39;s BLOG">
+<meta property="og:description" content="区块链智能合约欢迎来到Blockchain方向！在CTF里，这个方向主要侧重于智能合约安全，题目的主要形式是提供题目合约，要求进行合约审计并且找到合约中的漏洞并利用它达成某一目的（比如修改solved变量），当然还有其它的类型，比如提供字节码然后进行EVM字节码逆向，然后再利用合约漏洞等。 目前智能合约的主流语言是Solidity 文章参考：https:&#x2F;&#x2F;cauliweak9.github.io">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tgvhzg.github.io/pic/background.jpg">
+<meta property="article:published_time" content="2025-11-14T06:11:33.510Z">
+<meta property="article:modified_time" content="2025-11-14T06:14:03.323Z">
+<meta property="article:author" content="JiuCheng">
+<meta property="article:tag" content="blockchain">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tgvhzg.github.io/pic/background.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "区块链智能合约",
+  "url": "https://tgvhzg.github.io/2025/11/14/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/",
+  "image": "https://tgvhzg.github.io/pic/background.jpg",
+  "datePublished": "2025-11-14T06:11:33.510Z",
+  "dateModified": "2025-11-14T06:14:03.323Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "JiuCheng",
+      "url": "https://tgvhzg.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/pic/head.jpg"><link rel="canonical" href="https://tgvhzg.github.io/2025/11/14/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '区块链智能合约',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/pic/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/pic/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/pic/background.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">JiuCheng's BLOG</span></a><a class="nav-page-title" href="/"><span class="site-name">区块链智能合约</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">区块链智能合约</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-11-14T06:11:33.510Z" title="Created 2025-11-14 14:11:33">2025-11-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-11-14T06:14:03.323Z" title="Updated 2025-11-14 14:14:03">2025-11-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/MISC/">MISC</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="区块链智能合约"><a href="#区块链智能合约" class="headerlink" title="区块链智能合约"></a>区块链智能合约</h1><p>欢迎来到Blockchain方向！在CTF里，这个方向主要侧重于智能合约安全，题目的主要形式是提供题目合约，要求进行合约审计并且找到合约中的漏洞并利用它达成某一目的（比如修改solved变量），当然还有其它的类型，比如提供字节码然后进行EVM字节码逆向，然后再利用合约漏洞等。</p>
+<p>目前智能合约的主流语言是Solidity</p>
+<h2 id="文章参考："><a href="#文章参考：" class="headerlink" title="文章参考："></a>文章参考：</h2><p><a target="_blank" rel="noopener" href="https://cauliweak9.github.io/2024/04/28/Blockchain-Guide/">https://cauliweak9.github.io/2024/04/28/Blockchain-Guide/</a></p>
+<h2 id="靶场："><a href="#靶场：" class="headerlink" title="靶场："></a>靶场：</h2><p>靶场的话先刷<a target="_blank" rel="noopener" href="https://ethernaut.openzeppelin.com/">https://ethernaut.openzeppelin.com/</a><br>这个人有全wp<a target="_blank" rel="noopener" href="https://exp10it.io/2024/04/ethernaut-writeup/#puzzle-wallet">https://exp10it.io/2024/04/ethernaut-writeup/#puzzle-wallet</a><br>这个比较难 <a target="_blank" rel="noopener" href="https://onlypwner.xyz/challenges">https://onlypwner.xyz/challenges</a> 后面再刷</p>
+<h2 id="（一）准备工作："><a href="#（一）准备工作：" class="headerlink" title="（一）准备工作："></a>（一）准备工作：</h2><h4 id="1-钱包"><a href="#1-钱包" class="headerlink" title="1.钱包"></a>1.钱包</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.MetaMask</span><br><span class="line">语言：Solidity</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2.Phantom</span><br><span class="line">Solana链强制需要</span><br><span class="line">语言：Rust</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3.Sui Wallet</span><br><span class="line">Sui链需要</span><br><span class="line">语言：Move</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-编写代码IDE"><a href="#2-编写代码IDE" class="headerlink" title="2.编写代码IDE"></a>2.编写代码IDE</h4><p>编写Solidity合约最常使用的是<a target="_blank" rel="noopener" href="https://remix.ethereum.org/">Remix IDE</a>，它支持本地的虚拟私链，同时可以利用Injected Provider和真实的链进行合约部署与交互</p>
+<h4 id="3-测试链"><a href="#3-测试链" class="headerlink" title="3.测试链"></a>3.测试链</h4><p>总站：<a target="_blank" rel="noopener" href="https://chainlist.org/">https://chainlist.org/</a></p>
+<p>测试链Sepolia Testnet，它的链ID（Chain ID）是11155111</p>
+<p>搜索ID就行</p>
+<h4 id="4-获取测试链的币"><a href="#4-获取测试链的币" class="headerlink" title="4.获取测试链的币"></a>4.获取测试链的币</h4><p>需要找到水龙头（Faucet）去接水，这个是黑话，其实就是获取某个链的代币，<a target="_blank" rel="noopener" href="https://faucetlink.to/sepolia">Faucet Link</a>上面有很多不同的水龙头，你可以自行去接水，但是目前绝大部分的水龙头都需要你在主网上面有价值至少10USD的ETH，bruh…</p>
+<p><img src="https://free4.yunpng.top/2025/04/01/67eac69482dca.png" alt="屏幕截图 2025-04-01 004444.png"></p>
+<h4 id="5-区块链浏览器"><a href="#5-区块链浏览器" class="headerlink" title="5.区块链浏览器"></a>5.区块链浏览器</h4><p>1.如果在真实链上进行了合约交互，那么肯定需要一个<strong>区块链浏览器</strong>，这里推荐<a target="_blank" rel="noopener" href="https://etherscan.io/">Etherscan</a></p>
+<p>对于Sepolia测试链，将etherscan.io改成sepolia.etherscan.io即可（同理）</p>
+<p>2.<a target="_blank" rel="noopener" href="https://ethplorer.io/">Ethplorer</a> 也是推荐</p>
+<h2 id="（二）基础知识"><a href="#（二）基础知识" class="headerlink" title="（二）基础知识"></a>（二）基础知识</h2><h3 id="（1）初识Web3"><a href="#（1）初识Web3" class="headerlink" title="（1）初识Web3"></a>（1）初识Web3</h3><p><a target="_blank" rel="noopener" href="https://learn.metamask.io/zh-CN/lessons/what-is-web3">Web3解释：互联网的未来 | MetaMask Learn</a></p>
+<p>深入探讨：</p>
+<p>1.什么是 Web3？</p>
+<p><a target="_blank" rel="noopener" href="https://consensys.io/blog/what-is-web3-here-are-some-ways-to-explain-it-to-a-friend">https://consensys.io/blog/what-is-web3-here-are-some-ways-to-explain-it-to-a-friend</a></p>
+<p>2.了解区块链和以太坊的基础知识（矿工和验证者、gas、加密货币和 NFT、区块浏览器、网络等）</p>
+<p><a target="_blank" rel="noopener" href="https://support.metamask.io/start/learn/learn-the-basics-of-blockchains-and-ethereum-miners-and-validators-gas-cryptocurrencies-and-nfts-block-explorer-networks-etc/#so-how-do-you-coordinate-all-that">https://support.metamask.io/start/learn/learn-the-basics-of-blockchains-and-ethereum-miners-and-validators-gas-cryptocurrencies-and-nfts-block-explorer-networks-etc/#so-how-do-you-coordinate-all-that</a></p>
+<h3 id="（2）以太坊（Ethereum）"><a href="#（2）以太坊（Ethereum）" class="headerlink" title="（2）以太坊（Ethereum）"></a>（2）以太坊（Ethereum）</h3><h4 id="文章阅读"><a href="#文章阅读" class="headerlink" title="文章阅读"></a>文章阅读</h4><p><a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/">以太坊开发文档 | ethereum.org</a></p>
+<p>以下均参照该文档进行总结</p>
+<h4 id="以太坊简介"><a href="#以太坊简介" class="headerlink" title="以太坊简介"></a>以太坊简介</h4><h6 id="1-什么是区块链？"><a href="#1-什么是区块链？" class="headerlink" title="1.什么是区块链？"></a>1.什么是区块链？</h6><p>对区块链最好的描述是将其描述为一个公共数据库，它由网络中的许多计算机更新和共享。</p>
+<p>Anders Brownworth 进行的<a target="_blank" rel="noopener" href="https://andersbrownworth.com/blockchain/blockchain">这个演示(opens in a new tab)</a>并观看下方的相关视频：</p>
+<p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_160oMzblY8">https://www.youtube.com/watch?v=_160oMzblY8</a></p>
+<h6 id="2-以太坊简介"><a href="#2-以太坊简介" class="headerlink" title="2.以太坊简介"></a>2.以太坊简介</h6><p>以太坊是一条区块链，其中嵌入了计算机。 它是以去中心化、无需许可、抗审查的方式构建应用程序和组织的基础</p>
+<h6 id="3-什么是以太币？"><a href="#3-什么是以太币？" class="headerlink" title="3.什么是以太币？"></a>3.什么是以太币？</h6><p><strong>以太币 (ETH)</strong> 是以太坊上的原生加密货币。 以太币的目的是允许计算市场化。</p>
+<h6 id="4-什么是智能合约？"><a href="#4-什么是智能合约？" class="headerlink" title="4.什么是智能合约？"></a>4.什么是智能合约？</h6><p>实际上，参与者不会每次在以太坊虚拟机上请求计算时都编写新代码。 相反，应用程序开发者将程序（可重用的代码片段）上传到以太坊虚拟机状态，用户发出请求以使用不同参数执行这些代码片段。 我们将这些上传至网络并由网络执行的程序称为智能合约。</p>
+<p>简单来说，你可以把智能合约想象成一种自动售货机：通过特定参数调用脚本后，如果满足某些特定条件，就会执行一些操作或计算。 例如，如果调用者将以太币发送给特定的接收者，简单的卖方智能合约就可以创建和分配数字资产所有权。</p>
+<h6 id="5-术语"><a href="#5-术语" class="headerlink" title="5.术语"></a>5.术语</h6><p>1.区块链</p>
+<p>所有在以太坊网络历史上提交给以太坊网络的区块的序列。 如此命名，是因为每个区块都包含对前一个区块的引用，这有助于保持所有区块的顺序，因而维持了精确历史记录的顺序。</p>
+<p>2.ETH 以太币</p>
+<p><strong>以太币 (ETH)</strong> 是以太坊上的原生加密货币。 用户向其他用户支付以太币，让他们完成自己的代码执行请求。</p>
+<p>3.EVM 以太坊虚拟机</p>
+<p>以太坊虚拟机是一个全局虚拟计算机，以太坊网络中的每个参与者都会存储并一致同意其状态。 任何参与者都可以请求在以太坊虚拟机上执行任意代码；代码执行会改变以太坊虚拟机的状态。</p>
+<p>4.Nodes 节点</p>
+<p>存储以太坊虚拟机状态的实体计算机。 节点间相互通信，传播关于以太坊状态的信息及其新的状态变化。 任何用户还可以通过广播来自节点的代码执行请求来请求代码执行。 以太坊网络本身就是所有以太坊节点及其通信的集合。</p>
+<p>5.帐户</p>
+<p>帐户是存储以太币之处。 用户可以初始化帐户，将以太币存入帐户，并将自己帐户中的以太币转账给其他用户。 帐户和帐户余额存储在以太坊虚拟机中的一个大表格中，是以太坊虚拟机总体状态的一部分。</p>
+<p>6.交易</p>
+<p>“交易请求”是表示以太坊虚拟机上的代码执行请求的正式术语。“交易”是指已完成的交易请求和相关的以太坊虚拟机状态变化。 任何用户都可以从节点向网络广播交易请求。 为了使交易请求影响一致同意的以太坊虚拟机状态，就必须由其他节点对其进行验证、执行并“提交到网络”。 执行任何代码都会导致以太坊虚拟机状态变化；一旦提交后，该状态变化将广播到网络中的所有节点。 以下为一些交易示例：</p>
+<ul>
+<li>从我的帐户发送 X 个以太币到 Alice 的帐户。</li>
+<li>将一些智能合约代码发布到以太坊虚拟机状态中。</li>
+<li>使用 Y 参数执行 EVM 中 X 地址的智能合约代码。</li>
+</ul>
+<p>7.区块</p>
+<p>交易量巨大，因此交易分批或分区块“提交”。 区块通常包含数十至数百笔交易。</p>
+<p>8.智能合约</p>
+<p>是指开发者发布到以太坊虚拟机状态中的可重用代码片段（程序）。 任何人都可以通过提出交易请求来请求执行智能合约代码。 因为开发者可以通过发布智能合约将任意可执行应用程序（游戏，市场，金融工具等）写入以太坊虚拟机，所以这些通常也称为dapp 或去中心化应用程序</p>
+<h6 id="6-相关教程——未完成"><a href="#6-相关教程——未完成" class="headerlink" title="6.相关教程——未完成"></a>6.相关教程——未完成</h6><ul>
+<li><a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/tutorials/a-developers-guide-to-ethereum-part-one/">以太坊开发者指南，第 1 部分</a> _ – 探索以太坊（非常适合使用 Python 和 web3.py 的初学者）</li>
+</ul>
+<h4 id="以太币简介"><a href="#以太币简介" class="headerlink" title="以太币简介"></a>以太币简介</h4><h6 id="1-什么是加密货币？"><a href="#1-什么是加密货币？" class="headerlink" title="1.什么是加密货币？"></a>1.什么是加密货币？</h6><p>加密货币是一种基于分布式账本（区块链）的交换媒介。</p>
+<p>交换媒介是指被广泛接受、可支付任何商品和服务的物品，而分类账是记录交易的数据存储系统。 区块链技术允许用户在分类账上进行交易，而不必依赖受信赖的第三方来维护分类账。</p>
+<h6 id="2-什么是以太币-ETH-？"><a href="#2-什么是以太币-ETH-？" class="headerlink" title="2.什么是以太币 (ETH)？"></a>2.什么是以太币 (ETH)？</h6><p><strong>以太币 (ETH)</strong> 是用于以太坊网络上许多事物的加密货币。 从根本上讲，以太币是唯一可接受的交易费支付方式，并且在<a target="_blank" rel="noopener" href="https://ethereum.org/zh/roadmap/merge/">合并</a>之后，在主网上验证和提出区块需要以太币。 以太币还被用作 <a target="_blank" rel="noopener" href="https://ethereum.org/zh/defi/">去中心化金融</a> 借贷市场的主要抵押形式，非同质化代币市场的主要记账单位以及提供服务、销售实体商品赚取的付款等。</p>
+<p>以太坊允许开发者创建去中心化应用程序 (dapp)，它们共享算力池。 这个共享池是有限的，因此以太坊需要一种机制来确定谁可以使用它。 否则，某个 dapp 可能会意外或恶意地消耗所有网络资源，从而导致其他应用程序无法访问算力池。</p>
+<p>ETH 加密货币支持以太坊算力的定价机制。 当用户想要完成一笔交易时，他们必须支付以太币，使他们的交易被区块链识别。 这些使用成本被称为 <em>gas 费用</em>，gas 费用的多少取决于执行交易所需的算力和全网当时的算力需求。</p>
+<p>因此，即使某恶意 dapp 无限循环提交，交易最终也会耗尽 ETH 并终止，从而使网络恢复正常。</p>
+<h6 id="3-铸造-ETH"><a href="#3-铸造-ETH" class="headerlink" title="3.铸造 ETH"></a>3.铸造 ETH</h6><p>铸造是指在以太坊分类账上创造新以太币的过程。 底层以太坊协议创造出新以太币，单一用户不可能创造。</p>
+<p>以太币铸造出来，用来奖励提议的每个区块，以及在每个时段的检查点奖励验证者执行的和达成共识有关的其他活动。 总发行量取决于验证者的数量和它们质押的以太币数量。 在所有验证者都诚实且在线的理想情况下，以太币总发行量会在所有验证者中等分，但现实中分配情况会因验证者的表现而异。 总发行量的大约 1&#x2F;8 会奖励给区块提议者，剩余部分在其它验证者中分配。 区块提议者还会获得交易费小费和矿工可提取价值，但这些都来自流通中的以太币，而非新发行的以太币。</p>
+<h6 id="4-燃烧-ETH"><a href="#4-燃烧-ETH" class="headerlink" title="4.燃烧 ETH"></a>4.燃烧 ETH</h6><p>除了通过区块奖励创建以太币，以太币也能通过“燃烧”过程销毁。 当 ETH 被燃烧掉，它也就永久退出流通。</p>
+<p>以太坊上的每一笔交易都会发生以太币销毁。 当用户为他们的交易支付费用时，网络根据交易需求设置的基础燃料费会被销毁。 以太币销毁再加上可变区块大小和最高燃料费，简化了以太坊上的交易费估算。 网络需求量高时，[区块(opens in a new tab)]燃烧的以太币数量可以多于铸造的以太币数量，有效地抵消了以太币的发行。</p>
+<p>销毁基础费抑制区块生产者操纵交易的能力。 例如，如果区块生产者获得了基础费，他们可以免费添加自己的交易，并提高其他所有人的基础费。 或者，矿工可以将基础费退还给一些链下用户，造成交易费市场更加不透明和复杂。</p>
+<h6 id="5-ETH-面额"><a href="#5-ETH-面额" class="headerlink" title="5.ETH 面额"></a>5.ETH 面额</h6><p>由于以太坊上很多交易数额都比较小，因此以太币有几种面额，可以作为较小的记账单位。 在这些面额中，Wei 与 Gwei 特别重要。</p>
+<p>Wei 是最小的以太币面额，因此在[以太坊黄皮书(opens in a new tab)]等众多技术实现中，都以 Wei 为单位进行计算。</p>
+<p>Gwei（giga-wei 的缩写），常用于描述以太坊上的燃料费用。</p>
+<table>
+<thead>
+<tr>
+<th>面额</th>
+<th>ETH 值</th>
+<th>常见用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Wei</td>
+<td>10-18</td>
+<td>技术实施</td>
+</tr>
+<tr>
+<td>Gwei</td>
+<td>10-9</td>
+<td>可读燃料费用</td>
+</tr>
+</tbody></table>
+<h6 id="6-传输-ETH"><a href="#6-传输-ETH" class="headerlink" title="6.传输 ETH"></a>6.传输 ETH</h6><p>以太坊上的每笔交易都包含一个 <code>value</code> 字段，指定从发送者地址发送到接收者地址的以太币转账金额（以 Wei 为单位）。</p>
+<p>当接收者地址是<strong>智能合约</strong>时，在智能合约执行其代码后，这些转账的以太币可用于支付燃料费用。</p>
+<h6 id="7-查询-ETH"><a href="#7-查询-ETH" class="headerlink" title="7.查询 ETH"></a>7.查询 ETH</h6><p>用户可以通过检查帐户的 <code>balance</code> 字段来查询任何<a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/accounts/">帐户</a>的以太币余额，该字段显示以太币持有数量（以 Wei 为单位）。</p>
+<p><a target="_blank" rel="noopener" href="https://etherscan.io/">Etherscan(opens in a new tab)</a> 是一种常用工具，用于通过基于 Web 的应用程序检查地址余额。 例如，<a target="_blank" rel="noopener" href="https://etherscan.io/address/0xde0b295669a9fd93d5f28d9ec85e40f4cb697bae">此 Etherscan 页面(opens in a new tab)</a>显示以太坊基金会的余额。 也可以通过使用钱包或直接向节点提出请求来查询帐户余额。</p>
+<h6 id="8-换算工具（Wei，Gwei，ETH）"><a href="#8-换算工具（Wei，Gwei，ETH）" class="headerlink" title="8.换算工具（Wei，Gwei，ETH）"></a>8.换算工具（Wei，Gwei，ETH）</h6><p><a target="_blank" rel="noopener" href="https://www.alchemy.com/gwei-calculator">Gwei 计算器(opens in a new tab)</a>：使用这个 Gwei 计算器可以轻松地换算 wei、Gwei 和 ETH。 只需输入任何数量的 wei、Gwei 或 ETH，就能够自动换算</p>
+<h6 id="9-例子"><a href="#9-例子" class="headerlink" title="9.例子"></a>9.例子</h6><p><img src="https://free4.yunpng.top/2025/04/04/67eec3a04da53.png" alt="屏幕截图 2025-04-03 231706.png"></p>
+<p>当然这个是经过翻译的，可以看到gas费用，以及单位</p>
+<h4 id="去中心化应用程序简介"><a href="#去中心化应用程序简介" class="headerlink" title="去中心化应用程序简介"></a>去中心化应用程序简介</h4><p>去中心化应用程序 (dapp) 是在去中心化网络上构建的应用程序，结合了<strong>智能合约</strong>和前端用户界面。 请注意，就像开放 API 一样，以太坊智能合约具有可访问性和透明性，所以你的 dapp 里甚至可以包含其他人写过的智能合约。</p>
+<h6 id="1-dapp-的定义"><a href="#1-dapp-的定义" class="headerlink" title="1.dapp 的定义"></a>1.dapp 的定义</h6><p>一个 dapp 的后端代码在一个去中心化 P2P 网络上运行。 与此相对应的，是在中心化服务器上运行后端代码的应用程序。</p>
+<p>dapp 可以用任何语言编写（就像是一个 app）。它有前端代码和用户界面，能调用其后端。 此外，它的前端可以托管在去中心化存储上，例如 <a target="_blank" rel="noopener" href="https://ipfs.io/">IPFS(opens in a new tab)</a>。</p>
+<ul>
+<li><strong>去中心化</strong> - dapp 在以太坊上运行，这是一个开放的公共去中心化平台，没有任何一个人或团体可以控制</li>
+<li><strong>确定性</strong> ，无论执行的环境如何，都执行相同的功能</li>
+<li><strong>图灵完备</strong> - dapp 可以根据所需资源执行任何操作</li>
+<li><strong>隔离性</strong> - 它们在称为 EVM 的虚拟环境中执行。即使智能合约出现问题，也不会妨碍区块链网络的正常运行</li>
+</ul>
+<h6 id="2-用来创建去中心化应用程序的工具"><a href="#2-用来创建去中心化应用程序的工具" class="headerlink" title="2.用来创建去中心化应用程序的工具"></a>2.用来创建去中心化应用程序的工具</h6><p><strong>Scaffold-ETH - 使用能自适应智能合约的前端，快速尝试 Solidity。</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/scaffold-eth/scaffold-eth-2">GitHub(opens in a new tab)</a></li>
+<li><a target="_blank" rel="noopener" href="https://punkwallet.io/">示例 dapp(opens in a new tab)</a></li>
+</ul>
+<p><strong>创建以太坊应用程序 - 使用一个命令创建以太坊驱动的应用程序。</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/paulrberg/create-eth-app">GitHub(opens in a new tab)</a></li>
+</ul>
+<p><strong>一键去中心化 - 用于从 ABI 生成去中心化应用程序前端的免费和开放源代码软件工具。</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://oneclickdapp.com/">oneclickdapp.com(opens in a new tab)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/oneclickdapp/oneclickdapp-v1">GitHub(opens in a new tab)</a></li>
+</ul>
+<p><strong>Etherflow  - 供以太坊开发者测试节点，并在浏览器中编写和调试 RPC 调用的免费和开放源代码软件工具。</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://etherflow.quiknode.io/">etherflow.quiknode.io(opens in a new tab)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/abunsen/etherflow">GitHub(opens in a new tab)</a></li>
+</ul>
+<p><strong>thirdweb - 为 Web3 开发提供各种语言的软件开发工具包、智能合约、工具和基础设施。</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://thirdweb.com/">主页(opens in a new tab)</a></li>
+<li><a target="_blank" rel="noopener" href="https://portal.thirdweb.com/">相关文档(opens in a new tab)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/thirdweb-dev/">GitHub(opens in a new tab)</a></li>
+</ul>
+<p><strong>Crossmint- 企业级 Web3 开发平台，可用于部署智能合约，支持信用卡和跨链支付方式，可利用应用程序接口创建、分发、销售、存储、编辑非同质化代币。</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.crossmint.com/">crossmint.com(opens in a new tab)</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.crossmint.com/">相关文档(opens in a new tab)</a></li>
+<li><a target="_blank" rel="noopener" href="https://discord.com/invite/crossmint">Discord(opens in a new tab)</a></li>
+</ul>
+<h4 id="账户"><a href="#账户" class="headerlink" title="账户"></a>账户</h4><h6 id="帐户类型"><a href="#帐户类型" class="headerlink" title="帐户类型"></a>帐户类型</h6><p>以太坊有两种帐户类型：</p>
+<ul>
+<li><p>外部所有的帐户 (EOA) – 由任何拥有私钥的人控制</p>
+</li>
+<li><p>合约帐户 – 部署到网络上的智能合约，由代码控制</p>
+<p>这两种帐户类型都能：</p>
+<ul>
+<li>接收、持有和发送 ETH 和 token</li>
+<li>与已部署的智能合约进行交互</li>
+</ul>
+</li>
+</ul>
+<h6 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h6><p><strong>外部持有</strong></p>
+<ul>
+<li>创建帐户是免费的</li>
+<li>可以发起交易</li>
+<li>外部所有的帐户之间只能进行以太币和代币交易</li>
+<li>由一对加密密钥组成：控制帐户活动的公钥和私钥</li>
+</ul>
+<p><strong>合约</strong></p>
+<ul>
+<li>创建合约存在成本，因为需要使用网络存储空间</li>
+<li>只能在收到交易时发送交易</li>
+<li>从外部帐户向合约帐户发起的交易能触发可执行多种操作的代码，例如转移代币甚至创建新合约</li>
+<li>合约帐户没有私钥。 相反，它们由智能合约代码逻辑控制</li>
+</ul>
+<h6 id="理解帐户"><a href="#理解帐户" class="headerlink" title="理解帐户"></a>理解帐户</h6><p>以太坊帐户有四个字段：</p>
+<ul>
+<li><code>nonce</code> - 一个计数器，用来显示外部帐户发送的交易数量或合约帐户创建的合约数量。 每个帐户只能执行具有一个给定随机数的一笔交易，以防范重放攻击，重放攻击指多次广播和重复执行已签署的交易。</li>
+<li><code>balance</code> – 这个地址拥有的 Wei 数量。 Wei 是以太币的计数单位，每个 ETH 有 1e+18 个 Wei。</li>
+<li><code>codeHash</code> - 该哈希表示以太坊虚拟机 (EVM) 上的帐户_代码_。 合约帐户具有编程的代码片段，可以执行不同的操作。 如果帐户收到消息调用，则执行此 EVM 代码。 与其他帐户字段不同，不能更改。 所有代码片段都被保存在状态数据库的相应哈希下，供后续检索。 此哈希值称为 codeHash。 对于外部所有的帐户，codeHash 字段是空字符串的哈希。</li>
+<li><code>storageRoot</code> – 有时被称为存储哈希。 Merkle Patricia trie 根节点的 256 位哈希已编码了帐户的存储内容（256 位整数值映射），并编码为 Trie，作为来自 256 的 Keccak 256 位哈希的映射位整数键，用于 RLP 编码的256位整数值。 此 Trie 对此帐户存储内容的哈希进行编码，默认情况下为空。</li>
+</ul>
+<p><img src="https://free4.yunpng.top/2025/04/06/67f274df94c7e.png" alt="accounts.png"></p>
+<h6 id="外部持有的帐户和密钥对"><a href="#外部持有的帐户和密钥对" class="headerlink" title="外部持有的帐户和密钥对"></a>外部持有的帐户和密钥对</h6><p>帐户由一对加密密钥组成：公钥和私钥。 它们有助于证明交易实际上是由发送者签名的，并防止伪造。 你的私钥是你用来签名交易的密钥，所以它保障你对与自己帐户相关的资金进行管理。 你从未真正持有加密货币，你持有私钥 – 资金总是在以太坊的账本上。</p>
+<p>这将防止恶意参与者广播虚假交易，因为你总是可以验证交易的发送者。</p>
+<h6 id="帐户创建"><a href="#帐户创建" class="headerlink" title="帐户创建"></a>帐户创建</h6><p>1.当你想要创建一个帐户时，大多数程序库会生成一个随机私钥。</p>
+<p>私钥由 64 个十六进制字符组成，可以用密码加密保存。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd036415f</span><br></pre></td></tr></table></figure>
+
+<p>使用<a target="_blank" rel="noopener" href="https://wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm">椭圆曲线加密法(opens in a new tab)</a>从私钥生成公钥。 通过获取公钥 Keccak-256 哈希的最后 20 个字节并校验码前面添加 <code>0x</code>，可以为帐户获取公共地址。</p>
+<p>这意味着外部帐户 (EOA) 有一个 42 字符的地址（ 20 字节区块，即 40 个十六进制字符，加上 <code>0x</code> 前缀）。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0x5e97870f263700f46aa00d967821199b9bc5a120</span><br></pre></td></tr></table></figure>
+
+<p>2.下面的示例显示如何使用一种名为 <a target="_blank" rel="noopener" href="https://geth.ethereum.org/docs/tools/clef/introduction">Clef(opens in a new tab)</a> 的签名工具生成一个新帐户。 Clef 是一个集成在以太坊客户端 <a target="_blank" rel="noopener" href="https://geth.ethereum.org/">Geth(opens in a new tab)</a> 中的帐户管理和签名工具。 <code>clef newaccount</code> 命令创建一个新的密钥对并保存在加密的密钥库中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; clef newaccount --keystore &lt;path&gt;</span><br><span class="line">2</span><br><span class="line">3Please enter a password for the new account to be created:</span><br><span class="line">4&gt; &lt;password&gt;</span><br><span class="line">5</span><br><span class="line">6------------</span><br><span class="line">7INFO [10-28|16:19:09.156] Your new key was generated       address=0x5e97870f263700f46aa00d967821199b9bc5a120</span><br><span class="line">8WARN [10-28|16:19:09.306] Please backup your key file      path=/home/user/go-ethereum/data/keystore/UTC--2022-10-28T15-19-08.000825927Z--5e97870f263700f46aa00d967821199b9bc5a120</span><br><span class="line">9WARN [10-28|16:19:09.306] Please remember your password!</span><br><span class="line">10生成帐户 0x5e97870f263700f46aa00d967821199b9bc5a120</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://geth.ethereum.org/docs">Geth 相关文档(opens in a new tab)</a></p>
+<p>可以通过你的私钥获取公钥，但你不能通过公钥获取私钥。 确保私钥的安全性，以及顾名思义，<strong>私密性</strong>，至关重要。</p>
+<p>你需要一个私钥来签署消息和交易并输出签名。 然后其他人可以使用签名获取你的公钥，证明信息的作者。 在你的应用程序中，你可以使用 JavaScript 程序库向网络发送交易</p>
+<h6 id="合约帐户"><a href="#合约帐户" class="headerlink" title="合约帐户"></a>合约帐户</h6><p>合约帐户也有一个 42 个字符组成的十六进制地址：</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0x06012c8cf97bead5deae237070f9587f8e7a266d</span><br></pre></td></tr></table></figure>
+
+<p>合约地址通常在将合约部署到以太坊区块链时给出。 地址产生自创建人的地址和从创建人地址发送的交易数量（“<strong>nonce</strong>”）。</p>
+<h6 id="验证者密钥"><a href="#验证者密钥" class="headerlink" title="验证者密钥"></a>验证者密钥</h6><p>以太坊还有一另种类型的密钥，它们是在以太坊从工作量证明过渡到权益证明共识时引入的。 它们是“BLS”密钥，用来识别验证者。 这些密钥可以有效地聚合，减少网络达成共识所需要的带宽。 没有这种密钥集合，验证者的最小质押金额将会高出许多。</p>
+<p><a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/consensus-mechanisms/pos/keys/">更多关于验证者密钥的信息</a></p>
+<h6 id="关于钱包的说明"><a href="#关于钱包的说明" class="headerlink" title="关于钱包的说明"></a>关于钱包的说明</h6><p>帐户和钱包不同。 钱包是一个界面或应用程序，可让你与以太坊帐户（外部帐户或合约帐户）进行交互。</p>
+<h6 id="延伸阅读——未完成"><a href="#延伸阅读——未完成" class="headerlink" title="延伸阅读——未完成"></a>延伸阅读——未完成</h6><ul>
+<li><a target="_blank" rel="noopener" href="https://info.etherscan.com/understanding-ethereum-accounts/">了解以太坊帐户(opens in a new tab)</a> - etherscan</li>
+</ul>
+<h4 id="交易"><a href="#交易" class="headerlink" title="交易"></a>交易</h4><p>交易是由帐户发出，带密码学签名的指令。 帐户将发起交易以更新以太坊网络的状态。 最简单的交易是将 ETH 从一个帐户转到另一个帐户。</p>
+<h6 id="什么是交易"><a href="#什么是交易" class="headerlink" title="什么是交易"></a>什么是交易</h6><p>以太坊交易是指由外部持有帐户发起的行动，换句话说，是指由人管理而不是智能合约管理的帐户。 例如，如果 Bob 发送 Alice 1 ETH，则 Bob 的帐户必须减少 1 ETH，而 Alice 的帐户必须增加 1 ETH。 交易会造成状态的改变。</p>
+<p>改变 EVM 状态的交易需要广播到整个网络。 任何节点都可以广播在以太坊虚拟机上执行交易的请求；此后，验证者将执行交易并将由此产生的状态变化传播到网络的其他部分。</p>
+<p>交易需要付费并且必须包含在一个有效区块中。 为了使本概述更加简洁，我们将另行介绍燃料费和验证。</p>
+<p>所提交的交易包括下列信息：</p>
+<ul>
+<li><code>from</code> - 发送者的地址，该地址将签署交易。 这将是一个外部帐户，因为合约帐户无法发送交易</li>
+<li><code>to</code> — 接收地址（如果是外部帐户，交易将传输值。 如果是合约帐户，交易将执行合约代码）</li>
+<li><code>signature</code> – 发送者的标识符。 当发送者的私钥签署交易并确保发送者已授权此交易时，生成此签名。</li>
+<li><code>nonce</code> - 一个有序递增的计数器，表示来自帐户的交易数量</li>
+<li><code>value</code> – 发送者向接收者转移的以太币数量（面值为 WEI，1 个以太币 &#x3D; 1e+18wei）</li>
+<li><code>input data</code> – 可包括任意数据的可选字段</li>
+<li><code>gasLimit</code> – 交易可以消耗的最大数量的燃料单位。 [以太坊虚拟机]指定每个计算步骤所需的燃料单位</li>
+<li><code>maxPriorityFeePerGas</code> - 作为小费提供给验证者的已消耗燃料的最高价格</li>
+<li><code>maxFeePerGas</code> - 愿意为交易支付的每单位燃料的最高费用（包括 <code>baseFeePerGas</code> 和 <code>maxPriorityFeePerGas</code>）</li>
+</ul>
+<p>燃料是指验证者处理交易所需的计算。 用户必须为此计算支付费用。 <code>gasLimit</code> 和 <code>maxPriorityFeePerGas</code> 决定支付给验证者的最高交易费。</p>
+<p>交易对象看起来像这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  from: &quot;0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8&quot;,</span><br><span class="line">  to: &quot;0xac03bb73b6a9e108530aff4df5077c2b3d481e5a&quot;,</span><br><span class="line">  gasLimit: &quot;21000&quot;,</span><br><span class="line">  maxFeePerGas: &quot;300&quot;</span><br><span class="line">  maxPriorityFeePerGas: &quot;10&quot;</span><br><span class="line">  nonce: &quot;0&quot;,</span><br><span class="line">  value: &quot;10000000000&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但交易对象需要使用发送者的私钥签名。 这证明交易只可能来自发送者，而不是欺诈。</p>
+<p>Geth 这样的以太坊客户端将处理此签名过程。</p>
+<p>示例 <a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/apis/json-rpc/">JSON-RPC</a> 调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;id&quot;: 2,</span><br><span class="line">  &quot;jsonrpc&quot;: &quot;2.0&quot;,</span><br><span class="line">  &quot;method&quot;: &quot;account_signTransaction&quot;,</span><br><span class="line">  &quot;params&quot;: [</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;from&quot;: &quot;0x1923f626bb8dc025849e00f99c25fe2b2f7fb0db&quot;,</span><br><span class="line">      &quot;gas&quot;: &quot;0x55555&quot;,</span><br><span class="line">      &quot;maxFeePerGas&quot;: &quot;0x1234&quot;,</span><br><span class="line">      &quot;maxPriorityFeePerGas&quot;: &quot;0x1234&quot;,</span><br><span class="line">      &quot;input&quot;: &quot;0xabcd&quot;,</span><br><span class="line">      &quot;nonce&quot;: &quot;0x0&quot;,</span><br><span class="line">      &quot;to&quot;: &quot;0x07a565b7ed7d7a678680a4c162885bedbb695fe0&quot;,</span><br><span class="line">      &quot;value&quot;: &quot;0x1234&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>示例响应：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;jsonrpc&quot;: &quot;2.0&quot;,</span><br><span class="line">  &quot;id&quot;: 2,</span><br><span class="line">  &quot;result&quot;: &#123;</span><br><span class="line">    &quot;raw&quot;: &quot;0xf88380018203339407a565b7ed7d7a678680a4c162885bedbb695fe080a44401a6e4000000000000000000000000000000000000000000000000000000000000001226a0223a7c9bcf5531c99be5ea7082183816eb20cfe0bbc322e97cc5c7f71ab8b20ea02aadee6b34b45bb15bc42d9c09de4a6754e7000908da72d48cc7704971491663&quot;,</span><br><span class="line">    &quot;tx&quot;: &#123;</span><br><span class="line">      &quot;nonce&quot;: &quot;0x0&quot;,</span><br><span class="line">      &quot;maxFeePerGas&quot;: &quot;0x1234&quot;,</span><br><span class="line">      &quot;maxPriorityFeePerGas&quot;: &quot;0x1234&quot;,</span><br><span class="line">      &quot;gas&quot;: &quot;0x55555&quot;,</span><br><span class="line">      &quot;to&quot;: &quot;0x07a565b7ed7d7a678680a4c162885bedbb695fe0&quot;,</span><br><span class="line">      &quot;value&quot;: &quot;0x1234&quot;,</span><br><span class="line">      &quot;input&quot;: &quot;0xabcd&quot;,</span><br><span class="line">      &quot;v&quot;: &quot;0x26&quot;,</span><br><span class="line">      &quot;r&quot;: &quot;0x223a7c9bcf5531c99be5ea7082183816eb20cfe0bbc322e97cc5c7f71ab8b20e&quot;,</span><br><span class="line">      &quot;s&quot;: &quot;0x2aadee6b34b45bb15bc42d9c09de4a6754e7000908da72d48cc7704971491663&quot;,</span><br><span class="line">      &quot;hash&quot;: &quot;0xeba2df809e7a612a0a0d444ccfa5c839624bdc00dd29e3340d46df3870f8a30e&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>raw</code> 是采用<a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/data-structures-and-encoding/rlp/">递归长度前缀 (RLP) </a>编码形式的签名交易</li>
+<li><code>tx</code> 是已签名交易的 JSON 形式。</li>
+</ul>
+<p>如有签名哈希，可通过加密技术证明交易来自发送者并提交网络。</p>
+<h6 id="data字段"><a href="#data字段" class="headerlink" title="data字段"></a><code>data</code>字段</h6><p>绝大多数交易都是从外部所有的帐户访问合约。 大多数合约用 Solidity 语言编写，并根据应用程序二进制接口 (ABI) 解释其<code>data</code>字段。</p>
+<p>前四个字节使用函数名称和参数的哈希指定要调用的函数。 <strong>有时可以使用<a target="_blank" rel="noopener" href="https://www.4byte.directory/signatures/">本数据库(opens in a new tab)</a>根据选择器识别函数</strong></p>
+<p>调用数据的其余部分是参数，**<a target="_blank" rel="noopener" href="https://docs.soliditylang.org/en/latest/abi-spec.html#formal-specification-of-the-encoding">按照应用程序二进制接口规范中的规定进行编码</a>（合约ABI规范）**</p>
+<p>例如，我们来看一下<a target="_blank" rel="noopener" href="https://etherscan.io/tx/0xd0dcbe007569fcfa1902dae0ab8b4e078efe42e231786312289b1eee5590f6a1">这笔交易(opens in a new tab)</a>。 使用 <strong>Click to show More（单击查看更多）</strong>查看调用数据。</p>
+<p>函数选择器是 <code>0xa9059cbb</code>。 有几个<a target="_blank" rel="noopener" href="https://www.4byte.directory/signatures/?bytes4_signature=0xa9059cbb">具有此签名的已知函数(opens in a new tab)</a>（到数据库里查找ID）。 本例中<a target="_blank" rel="noopener" href="https://etherscan.io/address/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48#code">合约源代码(opens in a new tab)</a>已经上传到 Etherscan，所以我们知道该函数是 <code>transfer(address, uint256)</code>。</p>
+<p>其余数据如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10000000000000000000000004f6742badb049791cd9a37ea913f2bac38d01279</span><br><span class="line">2000000000000000000000000000000000000000000000000000000003b0559f4</span><br></pre></td></tr></table></figure>
+
+<p>根据应用程序二进制接口规范，整型值（例如地址，它是 20 字节整型）在应用程序二进制接口中显示为 32 字节的字，前面用零填充。 所以我们知道 <code>to</code> 地址是<a target="_blank" rel="noopener" href="https://etherscan.io/address/0x4f6742badb049791cd9a37ea913f2bac38d01279"><code>4f6742badb049791cd9a37ea913f2bac38d01279</code>(opens in a new tab)</a>。 </p>
+<p><code>value</code> 是 0x3b0559f4 &#x3D; 990206452。</p>
+<h6 id="交易类型"><a href="#交易类型" class="headerlink" title="交易类型"></a>交易类型</h6><p>以太坊有几种不同类型的交易：</p>
+<ul>
+<li>常规交易：从一个帐户到另一个帐户的交易。</li>
+<li>合约部署交易：没有“to”地址的交易，数据字段用于合约代码。</li>
+<li>执行合约：与已部署的智能合约进行交互的交易。 在这种情况下，“to”地址是智能合约地址。</li>
+</ul>
+<h6 id="关于燃料"><a href="#关于燃料" class="headerlink" title="关于燃料"></a>关于燃料</h6><p>如上所述，执行交易需要耗费<a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/gas/">燃料</a>。 简单的转账交易需要 21000 单位燃料。</p>
+<p>因此，如果 Bob 要在 <code>baseFeePerGas</code> 为 190 Gwei 且 <code>maxPriorityFeePerGas</code> 为 10 Gwei 时给 Alice 发送一个以太币，Bob 需要支付以下费用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(190 + 10) * 21000 = 4,200,000 gwei</span><br><span class="line">--或--</span><br><span class="line">0.0042 ETH</span><br></pre></td></tr></table></figure>
+
+<p>Bob 的帐户将会扣除 <strong>1.0042 个以太币</strong>（1 个以太币给 Alice，0.0042 个以太币作为燃料费用）</p>
+<p>Alice 的帐户将会增加 <strong>+1.0 ETH</strong></p>
+<p>基础费将会燃烧 <strong>-0.00399 ETH</strong></p>
+<p>验证者获得 <strong>0.000210 个以太币</strong>的小费</p>
+<p>任何未用于交易的燃料都会退还给用户帐户。</p>
+<h6 id="智能合约交互"><a href="#智能合约交互" class="headerlink" title="智能合约交互"></a>智能合约交互</h6><p>任何涉及智能合约的交易都需要燃料。</p>
+<p>智能合约还可以包含被称为 <a target="_blank" rel="noopener" href="https://docs.soliditylang.org/en/latest/contracts.html#view-functions"><code>view</code>(opens in a new tab)</a> 或 <a target="_blank" rel="noopener" href="https://docs.soliditylang.org/en/latest/contracts.html#pure-functions"><code>pure</code>(opens in a new tab)</a> 的函数，这不会改变合约的状态。 像这样，从外部帐户调用这些函数不需要任何燃料。 此场景的底层远程过程调用 (RPC) 为 <a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/apis/json-rpc/#eth_call"><code>eth_call</code></a>：</p>
+<p><strong>（立即执行新的消息调用，但不在区块链上创建交易。 通常用来执行只读智能合约的函数，例如 ERC-20 合约的 <code>balanceOf</code> 函数。）</strong></p>
+<p>不同于使用 <code>eth_call</code> 进行访问，<code>view</code> 或 <code>pure</code> 函数通常也在内部（即从合约自身或其他合约）调用并消耗燃料。</p>
+<h6 id="交易生命周期"><a href="#交易生命周期" class="headerlink" title="交易生命周期"></a>交易生命周期</h6><p>交易提交后，就会发生以下情况：</p>
+<ol>
+<li>以加密方式生成的交易哈希： <code>0x97d99bc7729211111a21b12c933c949d4f31684f1d6954ff477d0477538ff017</code></li>
+<li>然后，该交易被广播到网络，并添加到由所有其他待处理的网络交易组成的交易池中。</li>
+<li>验证者必须选择你的交易并将它包含在一个区块中，以便验证交易并认为它“成功”。</li>
+<li>随着时间的流逝，包含你的交易的区块将升级成“合理”状态，然后变成“最后确定”状态。 通过这些升级，可以进一步确定 你的交易已经成功并将无法更改。 区块一旦“最终确定”，只能通过耗费数十亿美元 的网络级攻击来更改。</li>
+</ol>
+<h6 id="Typed-Transaction-Envelope交易"><a href="#Typed-Transaction-Envelope交易" class="headerlink" title="Typed Transaction Envelope交易"></a>Typed Transaction Envelope交易</h6><p>以太坊最初有一种交易形式。 每笔交易都包含 Nonce、燃料价格、燃料限制、目的地地址、价值、数据、v、r 和 s。 这些字段为 <a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/data-structures-and-encoding/rlp/">RLP 编码</a>，看起来像这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RLP([nonce, gasPrice, gasLimit, to, value, data, v, r, s])</span><br></pre></td></tr></table></figure>
+
+<p>以太坊经过演变，已经支持多种类型的交易，从而能够在不影响传统交易形式的情况下<strong>实现访问列表和 <a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-1559">EIP-1559(opens in a new tab)</a> 等新功能</strong></p>
+<p>**<a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-2718">EIP-2718(opens in a new tab)</a>.**是允许这种行为的。 交易解释如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TransactionType || TransactionPayload</span><br></pre></td></tr></table></figure>
+
+<p>其中，字段定义如下：</p>
+<ul>
+<li><code>TransactionType</code> - 一个在 0 到 0x7f 之间的数字，总共为 128 种可能的交易类型。</li>
+<li><code>TransactionPayload</code> - 由交易类型定义的任意字节数组。</li>
+</ul>
+<p>基于 <code>TransactionType</code> 值，交易可被分为以下几类：</p>
+<ol>
+<li><strong>Type 0（传统）交易：</strong>自以太坊推出以来使用的原始交易格式。 它们不包含 <a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-1559">EIP-1559(opens in a new tab)</a> 中的功能，例如动态燃料费计算或智能合约访问列表。 传统交易缺少以序列化形式表明其类型的特定前缀，在使用<a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/data-structures-and-encoding/rlp/">递归长度前缀编码 (RLP)</a> 时以 <code>0xf8</code> 字节开头。 这些交易的 TransactionType 值为 <code>0x0</code>。</li>
+<li><strong>Type 1 交易：</strong> 作为以太坊<a target="_blank" rel="noopener" href="https://ethereum.org/zh/history/#berlin">柏林升级</a>的一部分在 <a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-2930">EIP-2930(opens in a new tab)</a> 中引入，这些交易包含一个 <code>accessList</code> 参数。 该列表指定了交易预期访问的地址和存储密钥，有助于降低涉及智能合约的复杂交易的潜在<a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/gas/">燃料</a>花费。 EIP-1559 的费用市场变化不包含在 Type 1 交易中。 Type 1 交易还包括一个 <code>yParity</code> 参数，它可以是 <code>0x0</code> 或 <code>0x1</code>，表示 secp256k1 签名的 y 值奇偶性。 它们以字节 <code>0x01</code> 开头进行标识，其交易类型 (TransactionType) 值为 <code>0x1</code>。</li>
+<li><strong>Type 2 交易</strong>通常称为 EIP-1559 交易，是在以太坊<a target="_blank" rel="noopener" href="https://ethereum.org/zh/history/#london">伦敦升级</a>的 <a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-1559">EIP-1559(opens in a new tab)</a> 中引入的。 它们已成为以太坊网络上的标准交易类型。 这些交易引入了一种新的费用市场机制，通过将交易费分为基础费用和优先费用来提高可预测性。 它们以字节 <code>0x02</code> 开头，并包括 <code>maxPriorityFeePerGas</code> 和 <code>maxFeePerGas</code> 的字段。 Type 2 交易因其灵活性和效率，现已成为默认选择，特别是在网络严重拥堵期间，由于它能够帮助用户提高管理交易费用的可预测性，因此特别受到青睐。 这些交易的 TransactionType 值为 <code>0x2</code>。</li>
+</ol>
+<h6 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h6><ul>
+<li><a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-2718">EIP-2718：Typed Transaction Envelope(opens in a new tab)</a></li>
+<li>这些EIP均还未了解</li>
+</ul>
+<h4 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h4><p>区块是指一批交易的组合，并且包含链中上一个区块的哈希。 这将区块连接在一起（成为一个链），因为哈希是从区块数据中加密得出的。 这可以防止欺诈，因为以前的任何区块中的任何改变都会使后续所有区块无效，而且所有哈希都会改变，所有运行区块链的人都会注意到。</p>
+<h6 id="为什么要有区块？"><a href="#为什么要有区块？" class="headerlink" title="为什么要有区块？"></a>为什么要有区块？</h6><p>为了确保以太坊网络上的所有参与者保持同步状态并就交易的确切历史达成共识，我们将交易分为多个区块。 这意味着同时有数十个（甚至数百个）交易被提交、达成一致并同步。</p>
+<p>通过间隔提交，所有网络参与者有足够时间达成共识：即使交易请求每秒发生数十次，但以太坊上的区块仅仅大约每十二秒创建并提交一次。</p>
+<h6 id="区块如何工作"><a href="#区块如何工作" class="headerlink" title="区块如何工作"></a>区块如何工作</h6><p>为了保存交易历史，区块被严格排序（创建的每个新区块都包含一个其父块的引用），区块内的交易也严格排序。 除极少数情况外，在任何特定时间，网络上的所有参与者都同意区块的确切数目和历史， 并且正在努力将当前的活动交易请求分批到下一个区块。</p>
+<p>随机选择的验证者在网络上构建完区块后，该区块将传播到整个网络；所有节点都将该区块添加至其区块链的末尾，然后挑选新的验证者来创建下一个区块。 目前，确切的区块构建过程和提交&#x2F;共识过程由以太坊的“权益证明”协议规定。</p>
+<h6 id="权益证明协议"><a href="#权益证明协议" class="headerlink" title="权益证明协议"></a>权益证明协议</h6><p>权益证明是指：</p>
+<ul>
+<li>验证节点必须向存款合约中质押 32 个以太币，作为抵押品防止发生不良行为。 这有助于保护网络，因为如果发生不诚实活动且可以证实，部分甚至全部质押金额将被销毁。</li>
+<li>在每个时隙（12 秒的时间间隔）中，会随机选择一个验证者作为区块提议者。 他们将交易打包并执行，然后确定一个新的“状态”。 他们将这些信息包装到一个区块中并传送给其他验证者。</li>
+<li>其他获悉新区块的验证者再次执行区块中包含的交易，确定他们同意对全局状态提出的修改。 假设该区块是有效的，验证者就将该区块添加进各自的数据库。</li>
+<li>如果验证者获悉在同一时隙内有两个冲突区块，他们会使用自己的分叉选择算法选择获得最多质押以太币支持的那一个区块。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/consensus-mechanisms/pos/">有关权益证明的更多信息</a></p>
+<h6 id="区块包含什么？"><a href="#区块包含什么？" class="headerlink" title="区块包含什么？"></a>区块包含什么？</h6><p>一个区块中包含很多信息。 区块的最高层包含以下字段：</p>
+<table>
+<thead>
+<tr>
+<th align="left">字段</th>
+<th align="left">简介</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>时隙</code></td>
+<td align="left">区块所属的时隙</td>
+</tr>
+<tr>
+<td align="left"><code>proposer_index</code></td>
+<td align="left">提出区块的验证者的 ID</td>
+</tr>
+<tr>
+<td align="left"><code>parent_root</code></td>
+<td align="left">上一个区块的哈希</td>
+</tr>
+<tr>
+<td align="left"><code>state_root</code></td>
+<td align="left">状态对象的根哈希</td>
+</tr>
+<tr>
+<td align="left"><code>正文</code></td>
+<td align="left">包含多个字段的对象，定义如下</td>
+</tr>
+</tbody></table>
+<p>区块的 <code>body</code> 包含一些自有字段：</p>
+<table>
+<thead>
+<tr>
+<th align="left">栏目</th>
+<th align="left">简介</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>randao_reveal</code></td>
+<td align="left">用于选择下一个区块提议者的值</td>
+</tr>
+<tr>
+<td align="left"><code>eth1_data</code></td>
+<td align="left">关于存款合约的信息</td>
+</tr>
+<tr>
+<td align="left"><code>涂鸦</code></td>
+<td align="left">用于标记区块的任意数据</td>
+</tr>
+<tr>
+<td align="left"><code>proposer_slashings</code></td>
+<td align="left">将要惩罚的验证者列表</td>
+</tr>
+<tr>
+<td align="left"><code>attester_slashings</code></td>
+<td align="left">将要受到惩没的证明者列表</td>
+</tr>
+<tr>
+<td align="left"><code>认证</code></td>
+<td align="left">支持当前区块的认证列表</td>
+</tr>
+<tr>
+<td align="left"><code>存款</code></td>
+<td align="left">存款合约新增存款的列表</td>
+</tr>
+<tr>
+<td align="left"><code>voluntary_exits</code></td>
+<td align="left">退出网络的验证者列表</td>
+</tr>
+<tr>
+<td align="left"><code>sync_aggregate</code></td>
+<td align="left">用于服务轻客户端的验证者子集</td>
+</tr>
+<tr>
+<td align="left"><code>execution_payload</code></td>
+<td align="left">从执行客户端传送来的交易</td>
+</tr>
+</tbody></table>
+<p><code>attestations</code> 字段包含区块中所有认证的列表。 认证有自己的数据类型，其中包含多条数据。 每个认证包含：</p>
+<table>
+<thead>
+<tr>
+<th align="left">栏目</th>
+<th align="left">简介</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>aggregation_bits</code></td>
+<td align="left">参与此认证的验证者列表</td>
+</tr>
+<tr>
+<td align="left"><code>数据</code></td>
+<td align="left">具有多个子字段的容器</td>
+</tr>
+<tr>
+<td align="left"><code>签名</code></td>
+<td align="left">所有证明验证者的聚合签名</td>
+</tr>
+</tbody></table>
+<p><code>attestation</code> 中的 <code>data</code> 字段包含以下内容：</p>
+<table>
+<thead>
+<tr>
+<th align="left">栏目</th>
+<th align="left">简介</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>时隙</code></td>
+<td align="left">认证所涉及的时隙</td>
+</tr>
+<tr>
+<td align="left"><code>索引</code></td>
+<td align="left">证明验证者的索引</td>
+</tr>
+<tr>
+<td align="left"><code>beacon_block_root</code></td>
+<td align="left">包含此对象的信标区块的根哈希</td>
+</tr>
+<tr>
+<td align="left"><code>来源</code></td>
+<td align="left">最后一个合理的检查点</td>
+</tr>
+<tr>
+<td align="left"><code>target</code></td>
+<td align="left">最新的时段边界区块</td>
+</tr>
+</tbody></table>
+<p>执行 <code>execution_payload</code> 中的交易会更新全局状态。 所有客户端重新执行 <code>execution_payload</code> 中的交易，以确保新状态与新区块 <code>state_root</code> 字段中的状态相符。 这就是客户端如何判断新区块是否有效且可以安全添加到其区块链的方式。 <code>execution payload</code> 本身是一个包含多个字段的对象。 还有一个 <code>execution_payload_header</code>，包含有关执行数据的重要摘要信息。 这些数据结构如下组织：</p>
+<p><code>execution_payload_header</code> 包含以下字段：</p>
+<table>
+<thead>
+<tr>
+<th align="left">领域</th>
+<th align="left">简介</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>父_哈希值</code></td>
+<td align="left">父块的哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>fee_recipient</code></td>
+<td align="left">向其支付交易费的帐户地址</td>
+</tr>
+<tr>
+<td align="left"><code>state_root</code></td>
+<td align="left">应用此区块中的更改后，全局状态的根哈希</td>
+</tr>
+<tr>
+<td align="left"><code>receipts_root</code></td>
+<td align="left">交易收据树的哈希</td>
+</tr>
+<tr>
+<td align="left"><code>logs_bloom</code></td>
+<td align="left">包含事件日志的数据结构</td>
+</tr>
+<tr>
+<td align="left"><code>prev_randao</code></td>
+<td align="left">在随机选择验证者时使用的值</td>
+</tr>
+<tr>
+<td align="left"><code>block_number</code></td>
+<td align="left">当前区块的编号</td>
+</tr>
+<tr>
+<td align="left"><code>gas_limit</code></td>
+<td align="left">此区块允许的最大燃料量</td>
+</tr>
+<tr>
+<td align="left"><code>gas_used</code></td>
+<td align="left">此区块中使用的实际燃料量</td>
+</tr>
+<tr>
+<td align="left"><code>时间戳</code></td>
+<td align="left">区块时间</td>
+</tr>
+<tr>
+<td align="left"><code>extra_data</code></td>
+<td align="left">作为原始字节的任意附加数据</td>
+</tr>
+<tr>
+<td align="left"><code>base_fee_per_gas</code></td>
+<td align="left">基础费值</td>
+</tr>
+<tr>
+<td align="left"><code>block_hash</code></td>
+<td align="left">执行区块的哈希</td>
+</tr>
+<tr>
+<td align="left"><code>transactions_root</code></td>
+<td align="left">有效载荷中交易的根哈希</td>
+</tr>
+<tr>
+<td align="left"><code>withdrawal_root</code></td>
+<td align="left">有效负载中提款的根哈希</td>
+</tr>
+</tbody></table>
+<p><code>execution_payload</code> 本身包含以下字段（请注意这与 header 相同，只是它包含的不是交易的根哈希，而是实际的交易列表和提款信息列表）：</p>
+<table>
+<thead>
+<tr>
+<th align="left">栏目</th>
+<th align="left">简介</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>父_哈希值</code></td>
+<td align="left">父块的哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>fee_recipient</code></td>
+<td align="left">支付交易费用的帐户地址</td>
+</tr>
+<tr>
+<td align="left"><code>state_root</code></td>
+<td align="left">应用此区块中的更改后，全局的根哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>receipts_root</code></td>
+<td align="left">交易收据的哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>logs_bloom</code></td>
+<td align="left">包含事件日志的数据结构</td>
+</tr>
+<tr>
+<td align="left"><code>prev_randao</code></td>
+<td align="left">在随机验证者选择中使用的值</td>
+</tr>
+<tr>
+<td align="left"><code>block_number</code></td>
+<td align="left">当前区块的编号</td>
+</tr>
+<tr>
+<td align="left"><code>gas_limit</code></td>
+<td align="left">此区块允许的最大的燃料量</td>
+</tr>
+<tr>
+<td align="left"><code>gas_used</code></td>
+<td align="left">此区块中使用的燃料实际量</td>
+</tr>
+<tr>
+<td align="left"><code>时间戳</code></td>
+<td align="left">区块时间</td>
+</tr>
+<tr>
+<td align="left"><code>extra_data</code></td>
+<td align="left">作为原始字节任意附加数据</td>
+</tr>
+<tr>
+<td align="left"><code>base_fee_per_gas</code></td>
+<td align="left">基本费用值</td>
+</tr>
+<tr>
+<td align="left"><code>block_hash</code></td>
+<td align="left">执行区块的哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>交易</code></td>
+<td align="left">要执行交易的列表</td>
+</tr>
+<tr>
+<td align="left"><code>提款</code></td>
+<td align="left">提款对象列表</td>
+</tr>
+</tbody></table>
+<p><code>Withdrawals</code> 列表包含了 <code>withdrawal</code> 对象，结构如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">字段</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>地址</code></td>
+<td align="left">提款帐户地址</td>
+</tr>
+<tr>
+<td align="left"><code>amount</code></td>
+<td align="left">提款金额</td>
+</tr>
+<tr>
+<td align="left"><code>索引</code></td>
+<td align="left">提款索引值</td>
+</tr>
+<tr>
+<td align="left"><code>validatorIndex</code></td>
+<td align="left">验证者索引值</td>
+</tr>
+</tbody></table>
+<h6 id="区块时间"><a href="#区块时间" class="headerlink" title="区块时间"></a>区块时间</h6><p>区块时间是指两个区块之间的时间间隔。 在以太坊中，时间划分为每 12 秒一个单位，称为“时隙”。 在每个时隙内，选择一个单独的验证者提议区块。 假设所有验证者都在线且完全正常运行，则每个时隙内都会有一个区块产生，意味着区块时间是 12 秒。 但是，偶尔验证者在被要求提议区块时不在线，导致有时候一些时隙是空的。</p>
+<p>这种实现与基于工作量证明的系统不同。在工作量证明系统中，区块时间是带有概率性的，并由协议的目标挖矿难度调节。 以太坊的<a target="_blank" rel="noopener" href="https://etherscan.io/chart/blocktime">平均区块时间(opens in a new tab)</a>是一个很好的例子，根据不变的新的 12 秒区块时间，可以清楚地推断出从工作量证明到权益证明的过渡。</p>
+<h6 id="区块大小"><a href="#区块大小" class="headerlink" title="区块大小"></a>区块大小</h6><p>最后一条重要提示是，区块本身的大小是有界限的。 每个区块的目标大小为 1500 万单位燃料，但区块的大小将根据网络需求而增加或减少，直至达到 3000 万单位燃料的区块限制（目标区块大小的 2 倍）。 区块的燃料限制可以相对于上一个区块的燃料限制上调或下调 1&#x2F;1024 的比例。 因此，验证者可以通过共识来改变区块的燃料限制。 区块中所有交易消耗的总燃料量必须低于区块的燃料限制。 这很重要，因为它可以确保区块不能任意扩大。 如果区块可以任意扩大，由于空间和速度方面的要求，性能较差的全节点将逐渐无法跟上网络。 区块越大，在下一个时隙中及时处理它们需要的算力就越强大。 这是一种集中化的因素，可以通过限制区块大小来抵制。</p>
+<h4 id="以太坊虚拟机-EVM"><a href="#以太坊虚拟机-EVM" class="headerlink" title="以太坊虚拟机 (EVM)"></a>以太坊虚拟机 (EVM)</h4><p>以太坊虚拟机 (EVM) 是一个去中心化虚拟环境，它在所有以太坊节点上一种安全一致地方式执行代码。 节点运行以太坊虚拟机，以执行智能合约，利用“<a target="_blank" rel="noopener" href="https://ethereum.org/zh/gas/">燃料</a>”度量执行<a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/evm/opcodes/">操作</a>所需的计算工作，从而确保高效的资源分配和网络安全性。</p>
+<h6 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h6><p>对计算机科学中常见术语的基本了解，如<a target="_blank" rel="noopener" href="https://wikipedia.org/wiki/Byte">字节(opens in a new tab)</a>、<a target="_blank" rel="noopener" href="https://wikipedia.org/wiki/Computer_memory">内存(opens in a new tab)</a>和<a target="_blank" rel="noopener" href="https://wikipedia.org/wiki/Stack_(abstract_data_type)">堆栈(opens in a new tab)</a>是理解 EVM 的前提。 熟悉<a target="_blank" rel="noopener" href="https://wikipedia.org/wiki/Cryptographic_hash_function">哈希函数(opens in a new tab)</a>和<a target="_blank" rel="noopener" href="https://wikipedia.org/wiki/Merkle_tree">默克尔树(opens in a new tab)</a>等密码学&#x2F;区块链概念也会很有帮助</p>
+<h6 id="从账本到状态机"><a href="#从账本到状态机" class="headerlink" title="从账本到状态机"></a>从账本到状态机</h6><p>通常使用“分布式账本”的类比来描述像比特币这样的区块链，它使用密码学的基本工具来实现去中心化的货币。 账本保存着活动记录，而活动必须遵守一套规则，这些规则限制用户在修改账本时可以做什么和不可以做什么。 例如，比特币地址不能花费比之前收到的更多的比特币。 这些规则是比特币和许多其他区块链上所有交易的基础。</p>
+<p>虽然以太坊有自己的本机加密货币 (ETH)，遵循几乎完全相同的直观规则，但它也支持更强大的功能：<a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/smart-contracts/">智能合约</a>。 对于此更复杂的功能，需要一个更复杂的类比。 以太坊不是分布式账本，而是分布式<a target="_blank" rel="noopener" href="https://wikipedia.org/wiki/Finite-state_machine">状态机器(opens in a new tab)</a>。 以太坊的状态是一个大型数据结构，它不仅保存所有帐户和余额，而且还保存一个_机器状态_，它可以根据预定义的一组规则在不同的区块之间进行更改，并且可以执行任意的机器代码。 在区块中更改状态的具体规则由 EVM 定义。</p>
+<h6 id="以太坊状态转换函数"><a href="#以太坊状态转换函数" class="headerlink" title="以太坊状态转换函数"></a>以太坊状态转换函数</h6><p>EVM 的行为就像一个数学函数：在给定输入的情况下，它会产生确定性的输出。 因此，将以太坊更正式地描述为具有<strong>状态转换函数</strong>非常有帮助：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Y(S, T)= S&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>给定一个旧的有效状态 <code>（S）</code>&gt; 和一组新的有效交易 <code>（T）</code>，以太坊状态转换函数 <code>Y（S，T）</code> 产生新的有效输出状态<code> S&#39;</code></p>
+<h6 id="交易-1"><a href="#交易-1" class="headerlink" title="交易"></a>交易</h6><p>交易是来自帐户的密码学签名指令。 交易分为两种：一种是消息调用交易，另一种是合约创建交易。</p>
+<p>合约创建交易会创建一个新的合约帐户，其中包含已编译的 <a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/smart-contracts/anatomy/">智能合约</a> 字节码。 每当另一个帐户对该合约进行消息调用时，它都会执行其字节码。</p>
+<h6 id="EVM-说明"><a href="#EVM-说明" class="headerlink" title="EVM 说明"></a>EVM 说明</h6><p>EVM 作为一个<a target="_blank" rel="noopener" href="https://wikipedia.org/wiki/Stack_machine">堆栈机(opens in a new tab)</a>运行，其栈的深度为 1024 个项。 每个项目都是 256 位字，为了便于使用，选择了 256 位加密技术（如 Keccak-256 哈希或 secp256k1 签名）。</p>
+<p>在执行期间，EVM 会维护一个瞬态_内存_（作为字可寻址的字节数组），该内存不会在交易之间持久存在。</p>
+<p>然而，合约确实包含一个 Merkle Patricia <em>存储</em> trie（作为可字寻址的字数组），该 trie 与帐户和部分全局状态关联。</p>
+<p>已编译的智能合约字节码作为许多 EVM <a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/evm/opcodes/">opcodes</a>执行，它们执行标准的堆栈操作，例如 <code>XOR</code>、<code>AND</code>、<code>ADD</code>、<code>SUB</code>等。 EVM 还实现了一些区块链特定的堆栈操作，如 <code>ADDRESS</code>、<code>BALANCE</code>、<code>BLOCKHASH</code> 等。</p>
+<h6 id="EVM-实现（重要）"><a href="#EVM-实现（重要）" class="headerlink" title="EVM 实现（重要）"></a>EVM 实现（重要）</h6><p>EVM 的所有实现都必须遵守以太坊黄皮书中描述的规范。</p>
+<p>在以太坊九年的历程中，以太坊虚拟机经过了几次修订，并且存在不同编程语言实现的以太坊虚拟机版本。</p>
+<p><a target="_blank" rel="noopener" href="https://ethereum.org/zh/developers/docs/nodes-and-clients/#execution-clients">以太坊执行客户端</a>都包含一个以太坊虚拟机实现。 此外，还有多个独立的实现，包括：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ethereum/py-evm">Py-EVM(opens in a new tab)</a> - <em>Python</em></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ethereum/evmone">evmone(opens in a new tab)</a> - <em>C++</em></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ethereumjs/ethereumjs-vm">ethereumjs-vm(opens in a new tab)</a> - <em>JavaScript</em></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/bluealloy/revm">revm(opens in a new tab)</a> - <em>Rust</em></li>
+</ul>
+<h6 id="延伸阅读——未完成-1"><a href="#延伸阅读——未完成-1" class="headerlink" title="延伸阅读——未完成"></a>延伸阅读——未完成</h6><ul>
+<li><a target="_blank" rel="noopener" href="https://ethereum.github.io/yellowpaper/paper.pdf">以太坊黄皮书(opens in a new tab)</a></li>
+<li><a target="_blank" rel="noopener" href="https://jellopaper.org/">Jellopaper aka KEVM：K 中的 EVM 语法(opens in a new tab)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/chronaeon/beigepaper">The Beigepaper(opens in a new tab)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ethervm.io/">以太坊虚拟机操作码(opens in a new tab)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.evm.codes/">以太坊虚拟机操作码交互参考(opens in a new tab)</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.soliditylang.org/en/latest/introduction-to-smart-contracts.html#index-6">Solidity 文档的简短介绍(opens in a new tab)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ethereumbook/ethereumbook/blob/develop/13evm.asciidoc">精通以太坊 - 以太坊虚拟机(opens in a new tab)</a></li>
+</ul>
+<h4 id="以太坊虚拟机的操作码"><a href="#以太坊虚拟机的操作码" class="headerlink" title="以太坊虚拟机的操作码"></a>以太坊虚拟机的操作码</h4><p>在寻找交互式参考？ 请查看 <a target="_blank" rel="noopener" href="https://www.evm.codes/">evm.codes(opens in a new tab)</a>。</p>
+<p>对于具有动态燃料成本的操作，请参考 <a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md">gas.md(opens in a new tab)</a>。</p>
+<table>
+<thead>
+<tr>
+<th align="center">堆栈</th>
+<th align="left">名称</th>
+<th align="center">燃料</th>
+<th align="left">起始堆栈</th>
+<th align="left">最终堆栈</th>
+<th align="left">内存 &#x2F; 存储</th>
+<th align="left">注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">00</td>
+<td align="left">停止</td>
+<td align="center">0</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">halt execution</td>
+</tr>
+<tr>
+<td align="center">01</td>
+<td align="left">ADD</td>
+<td align="center">3</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a + b</code></td>
+<td align="left"></td>
+<td align="left">(u)int256 addition modulo 2**256</td>
+</tr>
+<tr>
+<td align="center">02</td>
+<td align="left">MUL</td>
+<td align="center">5</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a * b</code></td>
+<td align="left"></td>
+<td align="left">(u)int256 multiplication modulo 2**256</td>
+</tr>
+<tr>
+<td align="center">03</td>
+<td align="left">SUB</td>
+<td align="center">3</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a - b</code></td>
+<td align="left"></td>
+<td align="left">(u)int256 addition modulo 2**256</td>
+</tr>
+<tr>
+<td align="center">04</td>
+<td align="left">DIV</td>
+<td align="center">5</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a // b</code></td>
+<td align="left"></td>
+<td align="left">uint256 division</td>
+</tr>
+<tr>
+<td align="center">05</td>
+<td align="left">SDIV</td>
+<td align="center">5</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a // b</code></td>
+<td align="left"></td>
+<td align="left">int256 division</td>
+</tr>
+<tr>
+<td align="center">06</td>
+<td align="left">MOD</td>
+<td align="center">5</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a % b</code></td>
+<td align="left"></td>
+<td align="left">uint256 modulus</td>
+</tr>
+<tr>
+<td align="center">07</td>
+<td align="left">SMOD</td>
+<td align="center">5</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a % b</code></td>
+<td align="left"></td>
+<td align="left">int256 modulus</td>
+</tr>
+<tr>
+<td align="center">08</td>
+<td align="left">ADDMOD</td>
+<td align="center">8</td>
+<td align="left"><code>a, b, N</code></td>
+<td align="left"><code>(a + b) % N</code></td>
+<td align="left"></td>
+<td align="left">(u)int256 addition modulo N</td>
+</tr>
+<tr>
+<td align="center">09</td>
+<td align="left">MULMOD</td>
+<td align="center">8</td>
+<td align="left"><code>a, b, N</code></td>
+<td align="left"><code>(a * b) % N</code></td>
+<td align="left"></td>
+<td align="left">(u)int256 multiplication modulo N</td>
+</tr>
+<tr>
+<td align="center">0A</td>
+<td align="left">EXP</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a1-exp">A1(opens in a new tab)</a></td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a ** b</code></td>
+<td align="left"></td>
+<td align="left">uint256 exponentiation modulo 2**256</td>
+</tr>
+<tr>
+<td align="center">0B</td>
+<td align="left">SIGNEXTEND</td>
+<td align="center">5</td>
+<td align="left"><code>b, x</code></td>
+<td align="left"><code>SIGNEXTEND(x, b)</code></td>
+<td align="left"></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://wikipedia.org/wiki/Sign_extension">sign extend(opens in a new tab)</a> <code>x</code> from <code>(b+1)</code> bytes to 32 bytes</td>
+</tr>
+<tr>
+<td align="center">0C-0F</td>
+<td align="left"><em>invalid</em></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="left">LT</td>
+<td align="center">3</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a &lt; b</code></td>
+<td align="left"></td>
+<td align="left">uint256 less-than</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="left">GT</td>
+<td align="center">3</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a &gt; b</code></td>
+<td align="left"></td>
+<td align="left">uint256 greater-than</td>
+</tr>
+<tr>
+<td align="center">12</td>
+<td align="left">SLT</td>
+<td align="center">3</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a &lt; b</code></td>
+<td align="left"></td>
+<td align="left">int256 less-than</td>
+</tr>
+<tr>
+<td align="center">13</td>
+<td align="left">SGT</td>
+<td align="center">3</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a &gt; b</code></td>
+<td align="left"></td>
+<td align="left">int256 greater-than</td>
+</tr>
+<tr>
+<td align="center">14</td>
+<td align="left">EQ</td>
+<td align="center">3</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a == b</code></td>
+<td align="left"></td>
+<td align="left">(u)int256 equality</td>
+</tr>
+<tr>
+<td align="center">15</td>
+<td align="left">ISZERO</td>
+<td align="center">3</td>
+<td align="left"><code>a</code></td>
+<td align="left"><code>a == 0</code></td>
+<td align="left"></td>
+<td align="left">(u)int256 iszero</td>
+</tr>
+<tr>
+<td align="center">16</td>
+<td align="left">AND</td>
+<td align="center">3</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a &amp;&amp; b</code></td>
+<td align="left"></td>
+<td align="left">bitwise AND</td>
+</tr>
+<tr>
+<td align="center">17</td>
+<td align="left">OR</td>
+<td align="center">3</td>
+<td align="left"><code>a, b</code></td>
+<td align="left">&#96;a</td>
+<td align="left"></td>
+<td align="left">b&#96;</td>
+</tr>
+<tr>
+<td align="center">18</td>
+<td align="left">XOR</td>
+<td align="center">3</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>a ^ b</code></td>
+<td align="left"></td>
+<td align="left">bitwise XOR</td>
+</tr>
+<tr>
+<td align="center">19</td>
+<td align="left">NOT</td>
+<td align="center">3</td>
+<td align="left"><code>a</code></td>
+<td align="left"><code>~a</code></td>
+<td align="left"></td>
+<td align="left">bitwise NOT</td>
+</tr>
+<tr>
+<td align="center">1A</td>
+<td align="left">BYTE</td>
+<td align="center">3</td>
+<td align="left"><code>i, x</code></td>
+<td align="left"><code>(x &gt;&gt; (248 - i * 8)) &amp;&amp; 0xFF</code></td>
+<td align="left"></td>
+<td align="left"><code>i</code>th byte of (u)int256 <code>x</code>, from the left</td>
+</tr>
+<tr>
+<td align="center">1B</td>
+<td align="left">SHL</td>
+<td align="center">3</td>
+<td align="left"><code>shift, val</code></td>
+<td align="left"><code>val &lt;&lt; shift</code></td>
+<td align="left"></td>
+<td align="left">shift left</td>
+</tr>
+<tr>
+<td align="center">1C</td>
+<td align="left">SHR</td>
+<td align="center">3</td>
+<td align="left"><code>shift, val</code></td>
+<td align="left"><code>val &gt;&gt; shift</code></td>
+<td align="left"></td>
+<td align="left">logical shift right</td>
+</tr>
+<tr>
+<td align="center">1D</td>
+<td align="left">SAR</td>
+<td align="center">3</td>
+<td align="left"><code>shift, val</code></td>
+<td align="left"><code>val &gt;&gt; shift</code></td>
+<td align="left"></td>
+<td align="left">arithmetic shift right</td>
+</tr>
+<tr>
+<td align="center">1E-1F</td>
+<td align="left"><em>invalid</em></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">20</td>
+<td align="left">KECCAK256</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a2-sha3">A2(opens in a new tab)</a></td>
+<td align="left"><code>ost, len</code></td>
+<td align="left"><code>keccak256(mem[ost:ost+len-1])</code></td>
+<td align="left"></td>
+<td align="left">keccak256</td>
+</tr>
+<tr>
+<td align="center">21-2F</td>
+<td align="left"><em>invalid</em></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">30</td>
+<td align="left">ADDRESS</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>address(this)</code></td>
+<td align="left"></td>
+<td align="left">address of executing contract</td>
+</tr>
+<tr>
+<td align="center">31</td>
+<td align="left">BALANCE</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a5-balance-extcodesize-extcodehash">A5(opens in a new tab)</a></td>
+<td align="left"><code>addr</code></td>
+<td align="left"><code>addr.balance</code></td>
+<td align="left"></td>
+<td align="left">balance, in wei</td>
+</tr>
+<tr>
+<td align="center">32</td>
+<td align="left">ORIGIN</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>tx.origin</code></td>
+<td align="left"></td>
+<td align="left">address that originated the tx</td>
+</tr>
+<tr>
+<td align="center">33</td>
+<td align="left">CALLER</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>msg.sender</code></td>
+<td align="left"></td>
+<td align="left">address of msg sender</td>
+</tr>
+<tr>
+<td align="center">34</td>
+<td align="left">CALLVALUE</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>msg.value</code></td>
+<td align="left"></td>
+<td align="left">msg value, in wei</td>
+</tr>
+<tr>
+<td align="center">35</td>
+<td align="left">CALLDATALOAD</td>
+<td align="center">3</td>
+<td align="left"><code>idx</code></td>
+<td align="left"><code>msg.data[idx:idx+32]</code></td>
+<td align="left"></td>
+<td align="left">read word from msg data at index <code>idx</code></td>
+</tr>
+<tr>
+<td align="center">36</td>
+<td align="left">CALLDATASIZE</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>len(msg.data)</code></td>
+<td align="left"></td>
+<td align="left">length of msg data, in bytes</td>
+</tr>
+<tr>
+<td align="center">37</td>
+<td align="left">CALLDATACOPY</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a3-copy-operations">A3(opens in a new tab)</a></td>
+<td align="left"><code>dstOst, ost, len</code></td>
+<td align="left"><code>.</code></td>
+<td align="left">mem[dstOst:dstOst+len-1] :&#x3D; msg.data[ost:ost+len-1]</td>
+<td align="left">copy msg data</td>
+</tr>
+<tr>
+<td align="center">38</td>
+<td align="left">CODESIZE</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>len(this.code)</code></td>
+<td align="left"></td>
+<td align="left">length of executing contract’s code, in bytes</td>
+</tr>
+<tr>
+<td align="center">39</td>
+<td align="left">CODECOPY</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a3-copy-operations">A3(opens in a new tab)</a></td>
+<td align="left"><code>dstOst, ost, len</code></td>
+<td align="left"><code>.</code></td>
+<td align="left"></td>
+<td align="left">mem[dstOst:dstOst+len-1] :&#x3D; this.code[ost:ost+len-1]</td>
+</tr>
+<tr>
+<td align="center">3A</td>
+<td align="left">GASPRICE</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>tx.gasprice</code></td>
+<td align="left"></td>
+<td align="left">gas price of tx, in wei per unit gas <a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-1559#gasprice">**(opens in a new tab)</a></td>
+</tr>
+<tr>
+<td align="center">3B</td>
+<td align="left">EXTCODESIZE</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a5-balance-extcodesize-extcodehash">A5(opens in a new tab)</a></td>
+<td align="left"><code>addr</code></td>
+<td align="left"><code>len(addr.code)</code></td>
+<td align="left"></td>
+<td align="left">size of code at addr, in bytes</td>
+</tr>
+<tr>
+<td align="center">3C</td>
+<td align="left">EXTCODECOPY</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a4-extcodecopy">A4(opens in a new tab)</a></td>
+<td align="left"><code>addr, dstOst, ost, len</code></td>
+<td align="left"><code>.</code></td>
+<td align="left">mem[dstOst:dstOst+len-1] :&#x3D; addr.code[ost:ost+len-1]</td>
+<td align="left">copy code from <code>addr</code></td>
+</tr>
+<tr>
+<td align="center">3D</td>
+<td align="left">RETURNDATASIZE</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>size</code></td>
+<td align="left"></td>
+<td align="left">size of returned data from last external call, in bytes</td>
+</tr>
+<tr>
+<td align="center">3E</td>
+<td align="left">RETURNDATACOPY</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a3-copy-operations">A3(opens in a new tab)</a></td>
+<td align="left"><code>dstOst, ost, len</code></td>
+<td align="left"><code>.</code></td>
+<td align="left">mem[dstOst:dstOst+len-1] :&#x3D; returndata[ost:ost+len-1]</td>
+<td align="left">copy returned data from last external call</td>
+</tr>
+<tr>
+<td align="center">3F</td>
+<td align="left">EXTCODEHASH</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a5-balance-extcodesize-extcodehash">A5(opens in a new tab)</a></td>
+<td align="left"><code>addr</code></td>
+<td align="left"><code>哈希值</code></td>
+<td align="left"></td>
+<td align="left">hash &#x3D; addr.exists ? keccak256(addr.code) : 0</td>
+</tr>
+<tr>
+<td align="center">40</td>
+<td align="left">BLOCKHASH</td>
+<td align="center">20</td>
+<td align="left"><code>blockNum</code></td>
+<td align="left"><code>blockHash(blockNum)</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">41</td>
+<td align="left">COINBASE</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>block.coinbase</code></td>
+<td align="left"></td>
+<td align="left">当前区块提议者地址</td>
+</tr>
+<tr>
+<td align="center">42</td>
+<td align="left">TIMESTAMP</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>block.timestamp</code></td>
+<td align="left"></td>
+<td align="left">timestamp of current block</td>
+</tr>
+<tr>
+<td align="center">43</td>
+<td align="left">NUMBER</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>block.number</code></td>
+<td align="left"></td>
+<td align="left">number of current block</td>
+</tr>
+<tr>
+<td align="center">44</td>
+<td align="left">PREVRANDAO</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>randomness beacon</code></td>
+<td align="left"></td>
+<td align="left">randomness beacon</td>
+</tr>
+<tr>
+<td align="center">45</td>
+<td align="left">GASLIMIT</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>block.gaslimit</code></td>
+<td align="left"></td>
+<td align="left">gas limit of current block</td>
+</tr>
+<tr>
+<td align="center">46</td>
+<td align="left">CHAINID</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>chain_id</code></td>
+<td align="left"></td>
+<td align="left">push current <a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-155">chain id(opens in a new tab)</a> onto stack</td>
+</tr>
+<tr>
+<td align="center">47</td>
+<td align="left">SELFBALANCE</td>
+<td align="center">5</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>address(this).balance</code></td>
+<td align="left"></td>
+<td align="left">balance of executing contract, in wei</td>
+</tr>
+<tr>
+<td align="center">48</td>
+<td align="left">BASEFEE</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>block.basefee</code></td>
+<td align="left"></td>
+<td align="left">base fee of current block</td>
+</tr>
+<tr>
+<td align="center">49</td>
+<td align="left">BLOBHASH</td>
+<td align="center">3</td>
+<td align="left"><code>idx</code></td>
+<td align="left"><code>tx.blob_versioned_hashes[idx]</code></td>
+<td align="left"></td>
+<td align="left"><a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-4844">EIP-4844(opens in a new tab)</a></td>
+</tr>
+<tr>
+<td align="center">4A</td>
+<td align="left">BLOBBASEFEE</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>block.blobbasefee</code></td>
+<td align="left"></td>
+<td align="left">当前区块的二进制大对象基础费（<a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-7516">EIP-7516(opens in a new tab)</a>）</td>
+</tr>
+<tr>
+<td align="center">4B-4F</td>
+<td align="left"><em>invalid</em></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">50</td>
+<td align="left">POP</td>
+<td align="center">2</td>
+<td align="left"><code>_anon</code></td>
+<td align="left"><code>.</code></td>
+<td align="left"></td>
+<td align="left">remove item from top of stack and discard it</td>
+</tr>
+<tr>
+<td align="center">51</td>
+<td align="left">MLOAD</td>
+<td align="center">3<a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a0-1-memory-expansion">*(opens in a new tab)</a></td>
+<td align="left"><code>ost</code></td>
+<td align="left"><code>mem[ost:ost+32]</code></td>
+<td align="left"></td>
+<td align="left">read word from memory at offset <code>ost</code></td>
+</tr>
+<tr>
+<td align="center">52</td>
+<td align="left">MSTORE</td>
+<td align="center">3<a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a0-1-memory-expansion">*(opens in a new tab)</a></td>
+<td align="left"><code>ost, val</code></td>
+<td align="left"><code>.</code></td>
+<td align="left">mem[ost:ost+32] :&#x3D; val</td>
+<td align="left">write a word to memory</td>
+</tr>
+<tr>
+<td align="center">53</td>
+<td align="left">MSTORE8</td>
+<td align="center">3<a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a0-1-memory-expansion">*(opens in a new tab)</a></td>
+<td align="left"><code>ost, val</code></td>
+<td align="left"><code>.</code></td>
+<td align="left">mem[ost] :&#x3D; val &amp;&amp; 0xFF</td>
+<td align="left">write a single byte to memory</td>
+</tr>
+<tr>
+<td align="center">54</td>
+<td align="left">SLOAD</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a6-sload">A6(opens in a new tab)</a></td>
+<td align="left"><code>key</code></td>
+<td align="left"><code>storage[key]</code></td>
+<td align="left"></td>
+<td align="left">read word from storage</td>
+</tr>
+<tr>
+<td align="center">55</td>
+<td align="left">SSTORE</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a7-sstore">A7(opens in a new tab)</a></td>
+<td align="left"><code>key, val</code></td>
+<td align="left"><code>.</code></td>
+<td align="left">storage[key] :&#x3D; val</td>
+<td align="left">write word to storage</td>
+</tr>
+<tr>
+<td align="center">56</td>
+<td align="left">JUMP</td>
+<td align="center">8</td>
+<td align="left"><code>dst</code></td>
+<td align="left"><code>.</code></td>
+<td align="left"></td>
+<td align="left"><code>$pc := dst</code> mark that <code>pc</code> is only assigned if <code>dst</code> is a valid jumpdest</td>
+</tr>
+<tr>
+<td align="center">57</td>
+<td align="left">JUMPI</td>
+<td align="center">10</td>
+<td align="left"><code>dst, condition</code></td>
+<td align="left"><code>.</code></td>
+<td align="left"></td>
+<td align="left"><code>$pc := condition ? dst : $pc + 1</code></td>
+</tr>
+<tr>
+<td align="center">58</td>
+<td align="left">PC</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>$pc</code></td>
+<td align="left"></td>
+<td align="left">program counter</td>
+</tr>
+<tr>
+<td align="center">59</td>
+<td align="left">MSIZE</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>len(mem)</code></td>
+<td align="left"></td>
+<td align="left">size of memory in current execution context, in bytes</td>
+</tr>
+<tr>
+<td align="center">5A</td>
+<td align="left">GAS</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>gasRemaining</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">5B</td>
+<td align="left">JUMPDEST</td>
+<td align="center">1</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">mark valid jump destination</td>
+<td align="left">a valid jump destination for example a jump destination not inside the push data</td>
+</tr>
+<tr>
+<td align="center">5C</td>
+<td align="left">TLOAD</td>
+<td align="center">100</td>
+<td align="left"><code>key</code></td>
+<td align="left"><code>tstorage[key]</code></td>
+<td align="left"></td>
+<td align="left">从瞬态存储中读取字 (<a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-1153">EIP-1153(opens in a new tab)</a>)</td>
+</tr>
+<tr>
+<td align="center">5D</td>
+<td align="left">TSTORE</td>
+<td align="center">100</td>
+<td align="left"><code>key, val</code></td>
+<td align="left"><code>.</code></td>
+<td align="left">tstorage[key] :&#x3D; val</td>
+<td align="left">向瞬态存储中写入字 (<a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-1153">EIP-1153(opens in a new tab)</a>)</td>
+</tr>
+<tr>
+<td align="center">5E</td>
+<td align="left">MCOPY</td>
+<td align="center">3+3*字+<a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a0-1-memory-expansion">A0(opens in a new tab)</a></td>
+<td align="left"><code>dstOst, ost, len</code></td>
+<td align="left"><code>.</code></td>
+<td align="left">mem[dstOst] :&#x3D; mem[ost:ost+len]</td>
+<td align="left">将内存从一个区域复制到另一个区域 (<a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-5656">EIP-5656(opens in a new tab)</a>)</td>
+</tr>
+<tr>
+<td align="center">5F</td>
+<td align="left">PUSH0</td>
+<td align="center">2</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint8</code></td>
+<td align="left"></td>
+<td align="left">push the constant value 0 onto stack</td>
+</tr>
+<tr>
+<td align="center">60</td>
+<td align="left">PUSH1</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint8</code></td>
+<td align="left"></td>
+<td align="left">push 1-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">61</td>
+<td align="left">PUSH2</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint16</code></td>
+<td align="left"></td>
+<td align="left">push 2-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">62</td>
+<td align="left">PUSH3</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint24</code></td>
+<td align="left"></td>
+<td align="left">push 3-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">63</td>
+<td align="left">PUSH4</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint32</code></td>
+<td align="left"></td>
+<td align="left">push 4-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">64</td>
+<td align="left">PUSH5</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint40</code></td>
+<td align="left"></td>
+<td align="left">push 5-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">65</td>
+<td align="left">PUSH6</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint48</code></td>
+<td align="left"></td>
+<td align="left">push 6-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">66</td>
+<td align="left">PUSH7</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint56</code></td>
+<td align="left"></td>
+<td align="left">push 7-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">67</td>
+<td align="left">PUSH8</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint64</code></td>
+<td align="left"></td>
+<td align="left">push 8-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">68</td>
+<td align="left">PUSH9</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint72</code></td>
+<td align="left"></td>
+<td align="left">push 9-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">69</td>
+<td align="left">PUSH10</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint80</code></td>
+<td align="left"></td>
+<td align="left">push 10-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">6A</td>
+<td align="left">PUSH11</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint88</code></td>
+<td align="left"></td>
+<td align="left">push 11-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">6B</td>
+<td align="left">PUSH12</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint96</code></td>
+<td align="left"></td>
+<td align="left">push 12-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">6C</td>
+<td align="left">PUSH13</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint104</code></td>
+<td align="left"></td>
+<td align="left">push 13-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">6D</td>
+<td align="left">PUSH14</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint112</code></td>
+<td align="left"></td>
+<td align="left">push 14-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">6E</td>
+<td align="left">PUSH15</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint120</code></td>
+<td align="left"></td>
+<td align="left">push 15-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">6F</td>
+<td align="left">PUSH16</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint128</code></td>
+<td align="left"></td>
+<td align="left">push 16-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">70</td>
+<td align="left">PUSH17</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint136</code></td>
+<td align="left"></td>
+<td align="left">push 17-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">71</td>
+<td align="left">PUSH18</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint144</code></td>
+<td align="left"></td>
+<td align="left">push 18-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">72</td>
+<td align="left">PUSH19</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint152</code></td>
+<td align="left"></td>
+<td align="left">push 19-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">73</td>
+<td align="left">PUSH20</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint160</code></td>
+<td align="left"></td>
+<td align="left">push 20-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">74</td>
+<td align="left">PUSH21</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint168</code></td>
+<td align="left"></td>
+<td align="left">push 21-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">75</td>
+<td align="left">PUSH22</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint176</code></td>
+<td align="left"></td>
+<td align="left">push 22-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">76</td>
+<td align="left">PUSH23</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint184</code></td>
+<td align="left"></td>
+<td align="left">push 23-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">77</td>
+<td align="left">PUSH24</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint192</code></td>
+<td align="left"></td>
+<td align="left">push 24-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">78</td>
+<td align="left">PUSH25</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint200</code></td>
+<td align="left"></td>
+<td align="left">push 25-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">79</td>
+<td align="left">PUSH26</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint208</code></td>
+<td align="left"></td>
+<td align="left">push 26-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">7A</td>
+<td align="left">PUSH27</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint216</code></td>
+<td align="left"></td>
+<td align="left">push 27-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">7B</td>
+<td align="left">PUSH28</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint224</code></td>
+<td align="left"></td>
+<td align="left">push 28-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">7C</td>
+<td align="left">PUSH29</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint232</code></td>
+<td align="left"></td>
+<td align="left">push 29-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">7D</td>
+<td align="left">PUSH30</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint240</code></td>
+<td align="left"></td>
+<td align="left">push 30-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">7E</td>
+<td align="left">PUSH31</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint248</code></td>
+<td align="left"></td>
+<td align="left">push 31-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">7F</td>
+<td align="left">PUSH32</td>
+<td align="center">3</td>
+<td align="left"><code>.</code></td>
+<td align="left"><code>uint256</code></td>
+<td align="left"></td>
+<td align="left">push 32-byte value onto stack</td>
+</tr>
+<tr>
+<td align="center">80</td>
+<td align="left">DUP1</td>
+<td align="center">3</td>
+<td align="left"><code>a</code></td>
+<td align="left"><code>a, a</code></td>
+<td align="left"></td>
+<td align="left">clone 1st value on stack</td>
+</tr>
+<tr>
+<td align="center">81</td>
+<td align="left">DUP2</td>
+<td align="center">3</td>
+<td align="left"><code>_, a</code></td>
+<td align="left"><code>a, _, a</code></td>
+<td align="left"></td>
+<td align="left">clone 2nd value on stack</td>
+</tr>
+<tr>
+<td align="center">82</td>
+<td align="left">DUP3</td>
+<td align="center">3</td>
+<td align="left"><code>_, _, a</code></td>
+<td align="left"><code>a, _, _, a</code></td>
+<td align="left"></td>
+<td align="left">clone 3rd value on stack</td>
+</tr>
+<tr>
+<td align="center">83</td>
+<td align="left">DUP4</td>
+<td align="center">3</td>
+<td align="left"><code>_, _, _, a</code></td>
+<td align="left"><code>a, _, _, _, a</code></td>
+<td align="left"></td>
+<td align="left">clone 4th value on stack</td>
+</tr>
+<tr>
+<td align="center">84</td>
+<td align="left">DUP5</td>
+<td align="center">3</td>
+<td align="left"><code>..., a</code></td>
+<td align="left"><code>a, ..., a</code></td>
+<td align="left"></td>
+<td align="left">clone 5th value on stack</td>
+</tr>
+<tr>
+<td align="center">85</td>
+<td align="left">DUP6</td>
+<td align="center">3</td>
+<td align="left"><code>..., a</code></td>
+<td align="left"><code>a, ..., a</code></td>
+<td align="left"></td>
+<td align="left">clone 6th value on stack</td>
+</tr>
+<tr>
+<td align="center">86</td>
+<td align="left">DUP7</td>
+<td align="center">3</td>
+<td align="left"><code>..., a</code></td>
+<td align="left"><code>a, ..., a</code></td>
+<td align="left"></td>
+<td align="left">clone 7th value on stack</td>
+</tr>
+<tr>
+<td align="center">87</td>
+<td align="left">DUP8</td>
+<td align="center">3</td>
+<td align="left"><code>..., a</code></td>
+<td align="left"><code>a, ..., a</code></td>
+<td align="left"></td>
+<td align="left">clone 8th value on stack</td>
+</tr>
+<tr>
+<td align="center">88</td>
+<td align="left">DUP9</td>
+<td align="center">3</td>
+<td align="left"><code>..., a</code></td>
+<td align="left"><code>a, ..., a</code></td>
+<td align="left"></td>
+<td align="left">clone 9th value on stack</td>
+</tr>
+<tr>
+<td align="center">89</td>
+<td align="left">DUP10</td>
+<td align="center">3</td>
+<td align="left"><code>..., a</code></td>
+<td align="left"><code>a, ..., a</code></td>
+<td align="left"></td>
+<td align="left">clone 10th value on stack</td>
+</tr>
+<tr>
+<td align="center">8A</td>
+<td align="left">DUP11</td>
+<td align="center">3</td>
+<td align="left"><code>..., a</code></td>
+<td align="left"><code>a, ..., a</code></td>
+<td align="left"></td>
+<td align="left">clone 11th value on stack</td>
+</tr>
+<tr>
+<td align="center">8B</td>
+<td align="left">DUP12</td>
+<td align="center">3</td>
+<td align="left"><code>..., a</code></td>
+<td align="left"><code>a, ..., a</code></td>
+<td align="left"></td>
+<td align="left">clone 12th value on stack</td>
+</tr>
+<tr>
+<td align="center">8C</td>
+<td align="left">DUP13</td>
+<td align="center">3</td>
+<td align="left"><code>..., a</code></td>
+<td align="left"><code>a, ..., a</code></td>
+<td align="left"></td>
+<td align="left">clone 13th value on stack</td>
+</tr>
+<tr>
+<td align="center">8D</td>
+<td align="left">DUP14</td>
+<td align="center">3</td>
+<td align="left"><code>..., a</code></td>
+<td align="left"><code>a, ..., a</code></td>
+<td align="left"></td>
+<td align="left">clone 14th value on stack</td>
+</tr>
+<tr>
+<td align="center">8E</td>
+<td align="left">DUP15</td>
+<td align="center">3</td>
+<td align="left"><code>..., a</code></td>
+<td align="left"><code>a, ..., a</code></td>
+<td align="left"></td>
+<td align="left">clone 15th value on stack</td>
+</tr>
+<tr>
+<td align="center">8F</td>
+<td align="left">DUP16</td>
+<td align="center">3</td>
+<td align="left"><code>..., a</code></td>
+<td align="left"><code>a, ..., a</code></td>
+<td align="left"></td>
+<td align="left">clone 16th value on stack</td>
+</tr>
+<tr>
+<td align="center">90</td>
+<td align="left">SWAP1</td>
+<td align="center">3</td>
+<td align="left"><code>a, b</code></td>
+<td align="left"><code>b, a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">91</td>
+<td align="left">SWAP2</td>
+<td align="center">3</td>
+<td align="left"><code>a, _, b</code></td>
+<td align="left"><code>b, _, a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">92</td>
+<td align="left">SWAP3</td>
+<td align="center">3</td>
+<td align="left"><code>a, _, _, b</code></td>
+<td align="left"><code>b, _, _, a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">93</td>
+<td align="left">SWAP4</td>
+<td align="center">3</td>
+<td align="left"><code>a, _, _, _, b</code></td>
+<td align="left"><code>b, _, _, _, a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">94</td>
+<td align="left">SWAP5</td>
+<td align="center">3</td>
+<td align="left"><code>a, ..., b</code></td>
+<td align="left"><code>b, ..., a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">95</td>
+<td align="left">SWAP6</td>
+<td align="center">3</td>
+<td align="left"><code>a, ..., b</code></td>
+<td align="left"><code>b, ..., a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">96</td>
+<td align="left">SWAP7</td>
+<td align="center">3</td>
+<td align="left"><code>a, ..., b</code></td>
+<td align="left"><code>b, ..., a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">97</td>
+<td align="left">SWAP8</td>
+<td align="center">3</td>
+<td align="left"><code>a, ..., b</code></td>
+<td align="left"><code>b, ..., a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">98</td>
+<td align="left">SWAP9</td>
+<td align="center">3</td>
+<td align="left"><code>a, ..., b</code></td>
+<td align="left"><code>b, ..., a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">99</td>
+<td align="left">SWAP10</td>
+<td align="center">3</td>
+<td align="left"><code>a, ..., b</code></td>
+<td align="left"><code>b, ..., a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">9A</td>
+<td align="left">SWAP11</td>
+<td align="center">3</td>
+<td align="left"><code>a, ..., b</code></td>
+<td align="left"><code>b, ..., a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">9B</td>
+<td align="left">SWAP12</td>
+<td align="center">3</td>
+<td align="left"><code>a, ..., b</code></td>
+<td align="left"><code>b, ..., a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">9C</td>
+<td align="left">SWAP13</td>
+<td align="center">3</td>
+<td align="left"><code>a, ..., b</code></td>
+<td align="left"><code>b, ..., a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">9D</td>
+<td align="left">SWAP14</td>
+<td align="center">3</td>
+<td align="left"><code>a, ..., b</code></td>
+<td align="left"><code>b, ..., a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">9E</td>
+<td align="left">SWAP15</td>
+<td align="center">3</td>
+<td align="left"><code>a, ..., b</code></td>
+<td align="left"><code>b, ..., a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">9F</td>
+<td align="left">SWAP16</td>
+<td align="center">3</td>
+<td align="left"><code>a, ..., b</code></td>
+<td align="left"><code>b, ..., a</code></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">A0</td>
+<td align="left">LOG0</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a8-log-operations">A8(opens in a new tab)</a></td>
+<td align="left"><code>ost, len</code></td>
+<td align="left"><code>.</code></td>
+<td align="left"></td>
+<td align="left">LOG0(memory[ost:ost+len-1])</td>
+</tr>
+<tr>
+<td align="center">A1</td>
+<td align="left">LOG1</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a8-log-operations">A8(opens in a new tab)</a></td>
+<td align="left"><code>ost, len, topic0</code></td>
+<td align="left"><code>.</code></td>
+<td align="left"></td>
+<td align="left">LOG1(memory[ost:ost+len-1], topic0)</td>
+</tr>
+<tr>
+<td align="center">A2</td>
+<td align="left">LOG2</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a8-log-operations">A8(opens in a new tab)</a></td>
+<td align="left"><code>ost, len, topic0, topic1</code></td>
+<td align="left"><code>.</code></td>
+<td align="left"></td>
+<td align="left">LOG2(memory[ost:ost+len-1], topic0, topic1)</td>
+</tr>
+<tr>
+<td align="center">A3</td>
+<td align="left">LOG3</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a8-log-operations">A8(opens in a new tab)</a></td>
+<td align="left"><code>ost, len, topic0, topic1, topic2</code></td>
+<td align="left"><code>.</code></td>
+<td align="left"></td>
+<td align="left">LOG3(memory[ost:ost+len-1], topic0, topic1, topic2)</td>
+</tr>
+<tr>
+<td align="center">A4</td>
+<td align="left">LOG4</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a8-log-operations">A8(opens in a new tab)</a></td>
+<td align="left"><code>ost, len, topic0, topic1, topic2, topic3</code></td>
+<td align="left"><code>.</code></td>
+<td align="left"></td>
+<td align="left">LOG4(memory[ost:ost+len-1], topic0, topic1, topic2, topic3)</td>
+</tr>
+<tr>
+<td align="center">A5-EF</td>
+<td align="left"><em>invalid</em></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">F0</td>
+<td align="left">CREATE</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a9-create-operations">A9(opens in a new tab)</a></td>
+<td align="left"><code>val, ost, len</code></td>
+<td align="left"><code>addr</code></td>
+<td align="left"></td>
+<td align="left">addr &#x3D; keccak256(rlp([address(this), this.nonce]))</td>
+</tr>
+<tr>
+<td align="center">F1</td>
+<td align="left">CALL</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#aa-call-operations">AA(opens in a new tab)</a></td>
+<td align="left"><code>gas, addr, val, argOst, argLen, retOst, retLen</code></td>
+<td align="left"><code>success</code></td>
+<td align="left">mem[retOst:retOst+retLen-1] :&#x3D; returndata</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">F2</td>
+<td align="left">CALLCODE</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#aa-call-operations">AA(opens in a new tab)</a></td>
+<td align="left"><code>gas, addr, val, argOst, argLen, retOst, retLen</code></td>
+<td align="left"><code>success</code></td>
+<td align="left">mem[retOst:retOst+retLen-1] &#x3D; returndata</td>
+<td align="left">same as DELEGATECALL, but does not propagate original msg.sender and msg.value</td>
+</tr>
+<tr>
+<td align="center">F3</td>
+<td align="left">返回</td>
+<td align="center">0<a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a0-1-memory-expansion">*(opens in a new tab)</a></td>
+<td align="left"><code>ost, len</code></td>
+<td align="left"><code>.</code></td>
+<td align="left"></td>
+<td align="left">return mem[ost:ost+len-1]</td>
+</tr>
+<tr>
+<td align="center">F4</td>
+<td align="left">DELEGATECALL</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#aa-call-operations">AA(opens in a new tab)</a></td>
+<td align="left"><code>gas, addr, argOst, argLen, retOst, retLen</code></td>
+<td align="left"><code>success</code></td>
+<td align="left">mem[retOst:retOst+retLen-1] :&#x3D; returndata</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">F5</td>
+<td align="left">CREATE2</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a9-create-operations">A9(opens in a new tab)</a></td>
+<td align="left"><code>val, ost, len, salt</code></td>
+<td align="left"><code>addr</code></td>
+<td align="left"></td>
+<td align="left">addr &#x3D; keccak256(0xff ++ address(this) ++ salt ++ keccak256(mem[ost:ost+len-1]))[12:]</td>
+</tr>
+<tr>
+<td align="center">F6-F9</td>
+<td align="left"><em>invalid</em></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">FA</td>
+<td align="left">STATICCALL</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#aa-call-operations">AA(opens in a new tab)</a></td>
+<td align="left"><code>gas, addr, argOst, argLen, retOst, retLen</code></td>
+<td align="left"><code>success</code></td>
+<td align="left">mem[retOst:retOst+retLen-1] :&#x3D; returndata</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">FB-FC</td>
+<td align="left"><em>invalid</em></td>
+<td align="center"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">FD</td>
+<td align="left">撤销</td>
+<td align="center">0<a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#a0-1-memory-expansion">*(opens in a new tab)</a></td>
+<td align="left"><code>ost, len</code></td>
+<td align="left"><code>.</code></td>
+<td align="left"></td>
+<td align="left">revert(mem[ost:ost+len-1])</td>
+</tr>
+<tr>
+<td align="center">FE</td>
+<td align="left">INVALID</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#af-invalid">AF(opens in a new tab)</a></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">designated invalid opcode - <a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-141">EIP-141(opens in a new tab)</a></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">FF</td>
+<td align="left">SELFDESTRUCT</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md#ab-selfdestruct">AB(opens in a new tab)</a></td>
+<td align="left"><code>addr</code></td>
+<td align="left"><code>.</code></td>
+<td align="left"></td>
+<td align="left">将所有以太币发送到 <code>addr</code>；如果在创建合约的同一交易中执行，它会销毁该合约</td>
+</tr>
+</tbody></table>
+<h4 id="燃料和费用"><a href="#燃料和费用" class="headerlink" title="燃料和费用"></a>燃料和费用</h4></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://tgvhzg.github.io">JiuCheng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://tgvhzg.github.io/2025/11/14/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/">https://tgvhzg.github.io/2025/11/14/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/blockchain/">blockchain</a></div><div class="post-share"><div class="social-share" data-image="/pic/background.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/10/29/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81-volatility%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" title="内存取证-volatility工具的使用"><img class="cover" src="/pic/background.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">内存取证-volatility工具的使用</div></div><div class="info-2"><div class="info-item-1">内存取证-volatility工具的使用简介Volatility 是一个开源的、跨平台的高级内存取证框架。它专门用于从 RAM（随机存取存储器） 快照（通常称为内存转储）中提取数字证据。 取证的常见文件后缀：.vmem &#x2F; .dump &#x2F; .raw &#x2F; .img 工具介绍输入vol.py -h查看官方的使用帮助 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969798991001011021031041051061071081091101111121131141151161171181191201211221231241251261271281291301311321331341351361371381391401411421431441...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/pic/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">JiuCheng</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/TGVhZg"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is JiuCheng's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E9%93%BE%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">区块链智能合约</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E7%AB%A0%E5%8F%82%E8%80%83%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">文章参考：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%B6%E5%9C%BA%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">靶场：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">（一）准备工作：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%92%B1%E5%8C%85"><span class="toc-number">1.3.0.1.</span> <span class="toc-text">1.钱包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81IDE"><span class="toc-number">1.3.0.2.</span> <span class="toc-text">2.编写代码IDE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%B5%8B%E8%AF%95%E9%93%BE"><span class="toc-number">1.3.0.3.</span> <span class="toc-text">3.测试链</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%8E%B7%E5%8F%96%E6%B5%8B%E8%AF%95%E9%93%BE%E7%9A%84%E5%B8%81"><span class="toc-number">1.3.0.4.</span> <span class="toc-text">4.获取测试链的币</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%8C%BA%E5%9D%97%E9%93%BE%E6%B5%8F%E8%A7%88%E5%99%A8"><span class="toc-number">1.3.0.5.</span> <span class="toc-text">5.区块链浏览器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.4.</span> <span class="toc-text">（二）基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E5%88%9D%E8%AF%86Web3"><span class="toc-number">1.4.1.</span> <span class="toc-text">（1）初识Web3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E4%BB%A5%E5%A4%AA%E5%9D%8A%EF%BC%88Ethereum%EF%BC%89"><span class="toc-number">1.4.2.</span> <span class="toc-text">（2）以太坊（Ethereum）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">文章阅读</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%AE%80%E4%BB%8B"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">以太坊简介</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8C%BA%E5%9D%97%E9%93%BE%EF%BC%9F"><span class="toc-number">1.4.2.2.0.1.</span> <span class="toc-text">1.什么是区块链？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%AE%80%E4%BB%8B"><span class="toc-number">1.4.2.2.0.2.</span> <span class="toc-text">2.以太坊简介</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E4%BB%80%E4%B9%88%E6%98%AF%E4%BB%A5%E5%A4%AA%E5%B8%81%EF%BC%9F"><span class="toc-number">1.4.2.2.0.3.</span> <span class="toc-text">3.什么是以太币？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-%E4%BB%80%E4%B9%88%E6%98%AF%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%EF%BC%9F"><span class="toc-number">1.4.2.2.0.4.</span> <span class="toc-text">4.什么是智能合约？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#5-%E6%9C%AF%E8%AF%AD"><span class="toc-number">1.4.2.2.0.5.</span> <span class="toc-text">5.术语</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#6-%E7%9B%B8%E5%85%B3%E6%95%99%E7%A8%8B%E2%80%94%E2%80%94%E6%9C%AA%E5%AE%8C%E6%88%90"><span class="toc-number">1.4.2.2.0.6.</span> <span class="toc-text">6.相关教程——未完成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E5%B8%81%E7%AE%80%E4%BB%8B"><span class="toc-number">1.4.2.3.</span> <span class="toc-text">以太币简介</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8A%A0%E5%AF%86%E8%B4%A7%E5%B8%81%EF%BC%9F"><span class="toc-number">1.4.2.3.0.1.</span> <span class="toc-text">1.什么是加密货币？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E4%BB%80%E4%B9%88%E6%98%AF%E4%BB%A5%E5%A4%AA%E5%B8%81-ETH-%EF%BC%9F"><span class="toc-number">1.4.2.3.0.2.</span> <span class="toc-text">2.什么是以太币 (ETH)？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E9%93%B8%E9%80%A0-ETH"><span class="toc-number">1.4.2.3.0.3.</span> <span class="toc-text">3.铸造 ETH</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#4-%E7%87%83%E7%83%A7-ETH"><span class="toc-number">1.4.2.3.0.4.</span> <span class="toc-text">4.燃烧 ETH</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#5-ETH-%E9%9D%A2%E9%A2%9D"><span class="toc-number">1.4.2.3.0.5.</span> <span class="toc-text">5.ETH 面额</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#6-%E4%BC%A0%E8%BE%93-ETH"><span class="toc-number">1.4.2.3.0.6.</span> <span class="toc-text">6.传输 ETH</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#7-%E6%9F%A5%E8%AF%A2-ETH"><span class="toc-number">1.4.2.3.0.7.</span> <span class="toc-text">7.查询 ETH</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#8-%E6%8D%A2%E7%AE%97%E5%B7%A5%E5%85%B7%EF%BC%88Wei%EF%BC%8CGwei%EF%BC%8CETH%EF%BC%89"><span class="toc-number">1.4.2.3.0.8.</span> <span class="toc-text">8.换算工具（Wei，Gwei，ETH）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#9-%E4%BE%8B%E5%AD%90"><span class="toc-number">1.4.2.3.0.9.</span> <span class="toc-text">9.例子</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%AE%80%E4%BB%8B"><span class="toc-number">1.4.2.4.</span> <span class="toc-text">去中心化应用程序简介</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-dapp-%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.4.2.4.0.1.</span> <span class="toc-text">1.dapp 的定义</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E7%94%A8%E6%9D%A5%E5%88%9B%E5%BB%BA%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="toc-number">1.4.2.4.0.2.</span> <span class="toc-text">2.用来创建去中心化应用程序的工具</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B4%A6%E6%88%B7"><span class="toc-number">1.4.2.5.</span> <span class="toc-text">账户</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%B8%90%E6%88%B7%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.4.2.5.0.1.</span> <span class="toc-text">帐户类型</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8C%BA%E5%88%AB"><span class="toc-number">1.4.2.5.0.2.</span> <span class="toc-text">主要区别</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%90%86%E8%A7%A3%E5%B8%90%E6%88%B7"><span class="toc-number">1.4.2.5.0.3.</span> <span class="toc-text">理解帐户</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E6%8C%81%E6%9C%89%E7%9A%84%E5%B8%90%E6%88%B7%E5%92%8C%E5%AF%86%E9%92%A5%E5%AF%B9"><span class="toc-number">1.4.2.5.0.4.</span> <span class="toc-text">外部持有的帐户和密钥对</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%B8%90%E6%88%B7%E5%88%9B%E5%BB%BA"><span class="toc-number">1.4.2.5.0.5.</span> <span class="toc-text">帐户创建</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%90%88%E7%BA%A6%E5%B8%90%E6%88%B7"><span class="toc-number">1.4.2.5.0.6.</span> <span class="toc-text">合约帐户</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E8%80%85%E5%AF%86%E9%92%A5"><span class="toc-number">1.4.2.5.0.7.</span> <span class="toc-text">验证者密钥</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E9%92%B1%E5%8C%85%E7%9A%84%E8%AF%B4%E6%98%8E"><span class="toc-number">1.4.2.5.0.8.</span> <span class="toc-text">关于钱包的说明</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BB%B6%E4%BC%B8%E9%98%85%E8%AF%BB%E2%80%94%E2%80%94%E6%9C%AA%E5%AE%8C%E6%88%90"><span class="toc-number">1.4.2.5.0.9.</span> <span class="toc-text">延伸阅读——未完成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%A4%E6%98%93"><span class="toc-number">1.4.2.6.</span> <span class="toc-text">交易</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%A4%E6%98%93"><span class="toc-number">1.4.2.6.0.1.</span> <span class="toc-text">什么是交易</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#data%E5%AD%97%E6%AE%B5"><span class="toc-number">1.4.2.6.0.2.</span> <span class="toc-text">data字段</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.4.2.6.0.3.</span> <span class="toc-text">交易类型</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E7%87%83%E6%96%99"><span class="toc-number">1.4.2.6.0.4.</span> <span class="toc-text">关于燃料</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E4%BA%A4%E4%BA%92"><span class="toc-number">1.4.2.6.0.5.</span> <span class="toc-text">智能合约交互</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BA%A4%E6%98%93%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.4.2.6.0.6.</span> <span class="toc-text">交易生命周期</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Typed-Transaction-Envelope%E4%BA%A4%E6%98%93"><span class="toc-number">1.4.2.6.0.7.</span> <span class="toc-text">Typed Transaction Envelope交易</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BB%B6%E4%BC%B8%E9%98%85%E8%AF%BB"><span class="toc-number">1.4.2.6.0.8.</span> <span class="toc-text">延伸阅读</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97"><span class="toc-number">1.4.2.7.</span> <span class="toc-text">区块</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E5%8C%BA%E5%9D%97%EF%BC%9F"><span class="toc-number">1.4.2.7.0.1.</span> <span class="toc-text">为什么要有区块？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C"><span class="toc-number">1.4.2.7.0.2.</span> <span class="toc-text">区块如何工作</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9D%83%E7%9B%8A%E8%AF%81%E6%98%8E%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.4.2.7.0.3.</span> <span class="toc-text">权益证明协议</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E5%8C%85%E5%90%AB%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.4.2.7.0.4.</span> <span class="toc-text">区块包含什么？</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E6%97%B6%E9%97%B4"><span class="toc-number">1.4.2.7.0.5.</span> <span class="toc-text">区块时间</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8C%BA%E5%9D%97%E5%A4%A7%E5%B0%8F"><span class="toc-number">1.4.2.7.0.6.</span> <span class="toc-text">区块大小</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-EVM"><span class="toc-number">1.4.2.8.</span> <span class="toc-text">以太坊虚拟机 (EVM)</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%89%8D%E6%8F%90%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.4.2.8.0.1.</span> <span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BB%8E%E8%B4%A6%E6%9C%AC%E5%88%B0%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="toc-number">1.4.2.8.0.2.</span> <span class="toc-text">从账本到状态机</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.2.8.0.3.</span> <span class="toc-text">以太坊状态转换函数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BA%A4%E6%98%93-1"><span class="toc-number">1.4.2.8.0.4.</span> <span class="toc-text">交易</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#EVM-%E8%AF%B4%E6%98%8E"><span class="toc-number">1.4.2.8.0.5.</span> <span class="toc-text">EVM 说明</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#EVM-%E5%AE%9E%E7%8E%B0%EF%BC%88%E9%87%8D%E8%A6%81%EF%BC%89"><span class="toc-number">1.4.2.8.0.6.</span> <span class="toc-text">EVM 实现（重要）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BB%B6%E4%BC%B8%E9%98%85%E8%AF%BB%E2%80%94%E2%80%94%E6%9C%AA%E5%AE%8C%E6%88%90-1"><span class="toc-number">1.4.2.8.0.7.</span> <span class="toc-text">延伸阅读——未完成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E6%93%8D%E4%BD%9C%E7%A0%81"><span class="toc-number">1.4.2.9.</span> <span class="toc-text">以太坊虚拟机的操作码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%87%83%E6%96%99%E5%92%8C%E8%B4%B9%E7%94%A8"><span class="toc-number">1.4.2.10.</span> <span class="toc-text">燃料和费用</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/11/14/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" title="区块链智能合约"><img src="/pic/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="区块链智能合约"/></a><div class="content"><a class="title" href="/2025/11/14/%E5%8C%BA%E5%9D%97%E9%93%BE%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6/" title="区块链智能合约">区块链智能合约</a><time datetime="2025-11-14T06:11:33.510Z" title="Created 2025-11-14 14:11:33">2025-11-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/29/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81-volatility%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" title="内存取证-volatility工具的使用"><img src="/pic/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内存取证-volatility工具的使用"/></a><div class="content"><a class="title" href="/2025/10/29/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81-volatility%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" title="内存取证-volatility工具的使用">内存取证-volatility工具的使用</a><time datetime="2025-10-29T11:37:45.450Z" title="Created 2025-10-29 19:37:45">2025-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/10/28/hello-world/" title="Hello World"><img src="/pic/background.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2025/10/28/hello-world/" title="Hello World">Hello World</a><time datetime="2025-10-28T12:33:11.823Z" title="Created 2025-10-28 20:33:11">2025-10-28</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/pic/top_foot_img.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By JiuCheng</span></div><div class="footer_custom_text">I'm JiuCheng</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
