@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>pyminifier混淆器 | JiuCheng's BLOG</title><meta name="author" content="JiuCheng"><meta name="copyright" content="JiuCheng"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="pyminifier项目地址Pyminifier 是一个 Python 代码压缩器、混淆器和压缩器 https:&#x2F;&#x2F;github.com&#x2F;liftoff&#x2F;pyminifier 安装这里以Ubuntu为例（在虚拟环境下） 下载源码包123wget https:&#x2F;&#x2F;files.pythonhosted.org&#x2F;packages&#x2F;source&#x2F;p&#x2F;pyminifier&#x2F;pyminifier-2.1.ta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pyminifier混淆器">
+<meta property="og:url" content="https://tgvhzg.github.io/2025/12/25/pyminifier/index.html">
+<meta property="og:site_name" content="JiuCheng&#39;s BLOG">
+<meta property="og:description" content="pyminifier项目地址Pyminifier 是一个 Python 代码压缩器、混淆器和压缩器 https:&#x2F;&#x2F;github.com&#x2F;liftoff&#x2F;pyminifier 安装这里以Ubuntu为例（在虚拟环境下） 下载源码包123wget https:&#x2F;&#x2F;files.pythonhosted.org&#x2F;packages&#x2F;source&#x2F;p&#x2F;pyminifier&#x2F;pyminifier-2.1.ta">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tgvhzg.github.io/pic/back5.jpg">
+<meta property="article:published_time" content="2025-12-25T05:01:15.079Z">
+<meta property="article:modified_time" content="2025-12-25T05:26:54.097Z">
+<meta property="article:author" content="JiuCheng">
+<meta property="article:tag" content="tool">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tgvhzg.github.io/pic/back5.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "pyminifier混淆器",
+  "url": "https://tgvhzg.github.io/2025/12/25/pyminifier/",
+  "image": "https://tgvhzg.github.io/pic/back5.jpg",
+  "datePublished": "2025-12-25T05:01:15.079Z",
+  "dateModified": "2025-12-25T05:26:54.097Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "JiuCheng",
+      "url": "https://tgvhzg.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/pic/head1.jpg"><link rel="canonical" href="https://tgvhzg.github.io/2025/12/25/pyminifier/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":280,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'pyminifier混淆器',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/pic/background.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/pic/head1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/pic/back5.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">JiuCheng's BLOG</span></a><a class="nav-page-title" href="/"><span class="site-name">pyminifier混淆器</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group hide"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">pyminifier混淆器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-12-25T05:01:15.079Z" title="Created 2025-12-25 13:01:15">2025-12-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-12-25T05:26:54.097Z" title="Updated 2025-12-25 13:26:54">2025-12-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Misc/">Misc</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="pyminifier"><a href="#pyminifier" class="headerlink" title="pyminifier"></a>pyminifier</h1><h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p>Pyminifier 是一个 Python 代码压缩器、混淆器和压缩器</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/liftoff/pyminifier">https://github.com/liftoff/pyminifier</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>这里以Ubuntu为例（在虚拟环境下）</p>
+<h3 id="下载源码包"><a href="#下载源码包" class="headerlink" title="下载源码包"></a>下载源码包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://files.pythonhosted.org/packages/source/p/pyminifier/pyminifier-2.1.tar.gz</span><br><span class="line">tar -xzvf pyminifier-2.1.tar.gz</span><br><span class="line">cd pyminifier-2.1</span><br></pre></td></tr></table></figure>
+
+<h3 id="手动运行-2to3-转换代码"><a href="#手动运行-2to3-转换代码" class="headerlink" title="手动运行 2to3 转换代码"></a>手动运行 2to3 转换代码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2to3 -w .</span><br></pre></td></tr></table></figure>
+
+<p>若没有2to3，安装即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install 2to3</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改setup-py代码"><a href="#修改setup-py代码" class="headerlink" title="修改setup.py代码"></a>修改setup.py代码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">import pyminifier</span><br><span class="line">from setuptools import setup</span><br><span class="line">from distutils.command.install import INSTALL_SCHEMES</span><br><span class="line"></span><br><span class="line">for scheme in list(INSTALL_SCHEMES.values()):</span><br><span class="line">    scheme[&#x27;data&#x27;] = scheme[&#x27;purelib&#x27;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=&quot;pyminifier&quot;,</span><br><span class="line">    version=pyminifier.__version__,</span><br><span class="line">    description=&quot;Python code minifier, obfuscator, and compressor&quot;,</span><br><span class="line">    author=pyminifier.__author__,</span><br><span class="line">    author_email=&quot;daniel.mcdougall@liftoffsoftware.com&quot;,</span><br><span class="line">    url=&quot;https://github.com/liftoff/pyminifier&quot;,</span><br><span class="line">    license=&quot;Proprietary&quot;,</span><br><span class="line">    py_modules=[&quot;pyminifier&quot;],</span><br><span class="line">    packages=[&#x27;pyminifier&#x27;],</span><br><span class="line">    classifiers=[</span><br><span class="line">        &quot;Environment :: Console&quot;,</span><br><span class="line">        &quot;Intended Audience :: Developers&quot;,</span><br><span class="line">        &quot;Intended Audience :: System Administrators&quot;,</span><br><span class="line">        &quot;Programming Language :: Python&quot;,</span><br><span class="line">        &quot;Programming Language :: Python :: 2&quot;,</span><br><span class="line">        &quot;Programming Language :: Python :: 2.6&quot;,</span><br><span class="line">        &quot;Programming Language :: Python :: 2.7&quot;,</span><br><span class="line">        &quot;Programming Language :: Python :: 3&quot;,</span><br><span class="line">        &quot;Programming Language :: Python :: 3.1&quot;,</span><br><span class="line">        &quot;Programming Language :: Python :: 3.2&quot;,</span><br><span class="line">        &quot;Programming Language :: Python :: 3.3&quot;,</span><br><span class="line">        &quot;Programming Language :: Python :: 3.4&quot;,</span><br><span class="line">        &quot;License :: OSI Approved :: GNU Affero General Public License v3&quot;,</span><br><span class="line">        &quot;Topic :: Software Development :: Build Tools&quot;,</span><br><span class="line">        &quot;Topic :: Software Development :: Libraries :: Python Modules&quot;,</span><br><span class="line">    ],</span><br><span class="line">    provides=[&#x27;pyminifier&#x27;],</span><br><span class="line">    entry_points = &#123;</span><br><span class="line">        &#x27;console_scripts&#x27;: [</span><br><span class="line">            &#x27;pyminifier = pyminifier.pyminifier:main&#x27;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 setup.py install</span><br></pre></td></tr></table></figure>
+
+<h3 id="检查是否安装成功"><a href="#检查是否安装成功" class="headerlink" title="检查是否安装成功"></a>检查是否安装成功</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyminifier --version</span><br></pre></td></tr></table></figure>
+
+<p>显示版本号即表示安装成功</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="基础压缩-Minify"><a href="#基础压缩-Minify" class="headerlink" title="基础压缩 (Minify)"></a>基础压缩 (Minify)</h3><p>这是默认模式，它会移除注释、文档字符串 (docstrings) 和多余的空行，但不会修改变量名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 直接输出到终端查看</span><br><span class="line">pyminifier flag.py</span><br><span class="line"></span><br><span class="line"># 保存到新文件</span><br><span class="line">pyminifier -o flag_min.py flag.py</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic1.imgdb.cn/item/694cca1ffdd38cde34c7f115.png"></p>
+<h3 id="代码混淆-Obfuscate"><a href="#代码混淆-Obfuscate" class="headerlink" title="代码混淆 (Obfuscate)"></a>代码混淆 (Obfuscate)</h3><p>它会将变量名、函数名、类名替换为无意义的短字符（如 <code>a</code>, <code>b</code>, <code>A</code>）。</p>
+<ul>
+<li><code>-O</code> (大写字母 O): 启用所有混淆选项。</li>
+<li><code>--replacement-length=1</code>: 指定替换后的变量名长度（默认为 1）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 混淆并输出</span><br><span class="line">pyminifier -O flag.py</span><br><span class="line"></span><br><span class="line"># 建议：指定替换后的变量长度为 2，增加混淆难度</span><br><span class="line">pyminifier -O --replacement-length=2 flag.py</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://pic1.imgdb.cn/item/694cca70fdd38cde34c7f333.png"></p>
+<p>恢复可以直接丢给ai分析推理大概</p>
+<h3 id="变态混淆模式-Non-Latin"><a href="#变态混淆模式-Non-Latin" class="headerlink" title="变态混淆模式 (Non-Latin)"></a>变态混淆模式 (Non-Latin)</h3><p>这个功能利用 Python 3 支持 Unicode 变量名的特性，使用非拉丁字符（如希腊字母、中文字符等）来命名变量。这会让代码看起来像乱码，非常难以调试。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyminifier --nonlatin flag.py</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="压缩为自执行脚本"><a href="#压缩为自执行脚本" class="headerlink" title="压缩为自执行脚本"></a>压缩为自执行脚本</h3><p>这会将你的脚本压缩成二进制数据，然后包装在一个 Python 脚本中。运行时它会自我解压并执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 使用 gzip 压缩</span><br><span class="line">pyminifier --gzip flag.py</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><table>
+<thead>
+<tr>
+<th><strong>参数</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-o &lt;file&gt;</code></td>
+<td>将结果输出到指定文件</td>
+</tr>
+<tr>
+<td><code>-O</code></td>
+<td>开启混淆（重命名变量、函数、类）</td>
+</tr>
+<tr>
+<td><code>--nonlatin</code></td>
+<td>使用非拉丁字符进行混淆（极难阅读）</td>
+</tr>
+<tr>
+<td><code>--replacement-length=N</code></td>
+<td>设置混淆后的变量名长度</td>
+</tr>
+<tr>
+<td><code>--gzip</code></td>
+<td>将脚本压缩为自解压执行的 gzip 包</td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://tgvhzg.github.io">JiuCheng</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://tgvhzg.github.io/2025/12/25/pyminifier/">https://tgvhzg.github.io/2025/12/25/pyminifier/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/tool/">tool</a></div><div class="post-share"><div class="social-share" data-image="/pic/back5.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/12/22/zip%E5%B7%B2%E7%9F%A5%E6%98%8E%E6%96%87%E6%94%BB%E5%87%BB/" title="zip已知明文攻击"><img class="cover" src="/pic/back4.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">zip已知明文攻击</div></div><div class="info-2"><div class="info-item-1">zip已知明文攻击加密算法ZIP的加密算法大致分为两种ZipCrypto和AES-256,各自又分Deflate和Store。  ZipCrypto Deflate ZipCrypto Store AES-256 Deflate AES-256 Store  ZipCrypto算是传统的zip加密方式，只有使用ZipCrypto Deflate &#x2F;Store才可以使用 ZIP已知明文攻击进行破解。 如何查看zip的详细信息呢？这里可以使用工具zipinfo：  zipinfo 是一个用于查看 ZIP 压缩包内部文件技术信息的命令行工具。它不需要解压文件，就可以列出压缩包内的文件名、文件大小、权限、压缩比率、时间戳等详细信息。 1zipinfo [选项] 压缩包名.zip  进行深度取证分析（选项  -v） 也可以用7zip查看 17z l -slt sample.zip  其中的Method值就为加密算法（用软件打开也可以直接看到） 工具Windows的ARCHPR该工具通常需要一个完整的明文文件来进行明文攻击，要满足下面三个条件才能成功： 1231.完整的明文文件2....</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/pic/head1.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">JiuCheng</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/TGVhZg"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is JiuCheng's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pyminifier"><span class="toc-number">1.</span> <span class="toc-text">pyminifier</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="toc-number">1.1.</span> <span class="toc-text">项目地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81%E5%8C%85"><span class="toc-number">1.2.1.</span> <span class="toc-text">下载源码包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E8%BF%90%E8%A1%8C-2to3-%E8%BD%AC%E6%8D%A2%E4%BB%A3%E7%A0%81"><span class="toc-number">1.2.2.</span> <span class="toc-text">手动运行 2to3 转换代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9setup-py%E4%BB%A3%E7%A0%81"><span class="toc-number">1.2.3.</span> <span class="toc-text">修改setup.py代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.4.</span> <span class="toc-text">手动安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F"><span class="toc-number">1.2.5.</span> <span class="toc-text">检查是否安装成功</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%8E%8B%E7%BC%A9-Minify"><span class="toc-number">1.3.1.</span> <span class="toc-text">基础压缩 (Minify)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86-Obfuscate"><span class="toc-number">1.3.2.</span> <span class="toc-text">代码混淆 (Obfuscate)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E6%80%81%E6%B7%B7%E6%B7%86%E6%A8%A1%E5%BC%8F-Non-Latin"><span class="toc-number">1.3.3.</span> <span class="toc-text">变态混淆模式 (Non-Latin)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9%E4%B8%BA%E8%87%AA%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="toc-number">1.3.4.</span> <span class="toc-text">压缩为自执行脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E6%95%B0"><span class="toc-number">1.4.</span> <span class="toc-text">参数</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/12/25/pyminifier/" title="pyminifier混淆器"><img src="/pic/back5.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="pyminifier混淆器"/></a><div class="content"><a class="title" href="/2025/12/25/pyminifier/" title="pyminifier混淆器">pyminifier混淆器</a><time datetime="2025-12-25T05:01:15.079Z" title="Created 2025-12-25 13:01:15">2025-12-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/22/zip%E5%B7%B2%E7%9F%A5%E6%98%8E%E6%96%87%E6%94%BB%E5%87%BB/" title="zip已知明文攻击"><img src="/pic/back4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="zip已知明文攻击"/></a><div class="content"><a class="title" href="/2025/12/22/zip%E5%B7%B2%E7%9F%A5%E6%98%8E%E6%96%87%E6%94%BB%E5%87%BB/" title="zip已知明文攻击">zip已知明文攻击</a><time datetime="2025-12-22T10:22:16.691Z" title="Created 2025-12-22 18:22:16">2025-12-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/21/DASCTF2025%E4%B8%8B%E5%8D%8A%E5%B9%B4%E8%B5%9B/" title="DASCTF2025下半年赛Misc复现"><img src="/pic/back2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DASCTF2025下半年赛Misc复现"/></a><div class="content"><a class="title" href="/2025/12/21/DASCTF2025%E4%B8%8B%E5%8D%8A%E5%B9%B4%E8%B5%9B/" title="DASCTF2025下半年赛Misc复现">DASCTF2025下半年赛Misc复现</a><time datetime="2025-12-21T04:23:18.722Z" title="Created 2025-12-21 12:23:18">2025-12-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/20/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81-volatility3%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" title="内存取证-volatility3工具的使用"><img src="/pic/back3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内存取证-volatility3工具的使用"/></a><div class="content"><a class="title" href="/2025/12/20/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81-volatility3%E5%B7%A5%E5%85%B7%E7%9A%84%E4%BD%BF%E7%94%A8/" title="内存取证-volatility3工具的使用">内存取证-volatility3工具的使用</a><time datetime="2025-12-20T12:54:23.744Z" title="Created 2025-12-20 20:54:23">2025-12-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/18/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81%E7%BA%BF%E4%B8%8BMisc%E5%A4%8D%E7%8E%B0/" title="强网拟态线下Misc复现"><img src="/pic/back.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="强网拟态线下Misc复现"/></a><div class="content"><a class="title" href="/2025/12/18/%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81%E7%BA%BF%E4%B8%8BMisc%E5%A4%8D%E7%8E%B0/" title="强网拟态线下Misc复现">强网拟态线下Misc复现</a><time datetime="2025-12-18T02:46:04.220Z" title="Created 2025-12-18 10:46:04">2025-12-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/pic/top_foot_img.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By JiuCheng</span></div><div class="footer_custom_text">I'm JiuCheng</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
