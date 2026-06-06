@@ -10,20 +10,7 @@
   canvas.setAttribute('aria-hidden', 'true');
   document.body.insertBefore(canvas, document.body.firstChild ? document.body.firstChild.nextSibling : null);
 
-  var hero = document.querySelector('#page-header.full_page');
-  var heroCanvas = null;
-  if (hero) {
-    heroCanvas = document.createElement('canvas');
-    heroCanvas.id = 'wallpaper-hero-canvas';
-    heroCanvas.setAttribute('aria-hidden', 'true');
-    hero.appendChild(heroCanvas);
-  }
-
-  var canvases = [canvas];
-  if (heroCanvas) canvases.push(heroCanvas);
-  var contexts = canvases.map(function (item) {
-    return item.getContext('2d');
-  });
+  var ctx = canvas.getContext('2d');
   var width = 0;
   var height = 0;
   var dpr = 1;
@@ -62,13 +49,11 @@
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     width = window.innerWidth;
     height = window.innerHeight;
-    canvases.forEach(function (item, index) {
-      item.width = Math.floor(width * dpr);
-      item.height = Math.floor(height * dpr);
-      item.style.width = width + 'px';
-      item.style.height = height + 'px';
-      contexts[index].setTransform(dpr, 0, 0, dpr, 0, 0);
-    });
+    canvas.width = Math.floor(width * dpr);
+    canvas.height = Math.floor(height * dpr);
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     var flakeCount = Math.min(150, Math.max(70, Math.round(width * height / 12000)));
     var glintCount = Math.min(16, Math.max(8, Math.round(width / 120)));
@@ -84,46 +69,23 @@
     mouse.y = (event.clientY / height - 0.5) * 8;
   }
 
-  function drawGlints(target, time) {
+  function drawGlints(time) {
     for (var i = 0; i < glints.length; i += 1) {
       var g = glints[i];
       var pulse = (Math.sin(time * 0.0008 + g.phase) + 1) * 0.5;
       var alpha = g.a * (0.45 + pulse * 0.55);
-      var gradient = target.createRadialGradient(g.x + mouse.x, g.y + mouse.y, 0, g.x + mouse.x, g.y + mouse.y, g.r);
+      var gradient = ctx.createRadialGradient(g.x + mouse.x, g.y + mouse.y, 0, g.x + mouse.x, g.y + mouse.y, g.r);
       gradient.addColorStop(0, 'rgba(255,255,255,' + alpha + ')');
       gradient.addColorStop(0.45, 'rgba(190,220,255,' + alpha * 0.38 + ')');
       gradient.addColorStop(1, 'rgba(255,255,255,0)');
-      target.fillStyle = gradient;
-      target.beginPath();
-      target.arc(g.x + mouse.x, g.y + mouse.y, g.r, 0, Math.PI * 2);
-      target.fill();
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(g.x + mouse.x, g.y + mouse.y, g.r, 0, Math.PI * 2);
+      ctx.fill();
     }
   }
 
-  function drawFlakes(target) {
-    for (var i = 0; i < flakes.length; i += 1) {
-      var f = flakes[i];
-      var x = f.x + mouse.x * (f.r / 8);
-      var y = f.y + mouse.y * (f.r / 10);
-      target.fillStyle = 'rgba(255,255,255,' + f.a + ')';
-      target.beginPath();
-      target.arc(x, y, f.r, 0, Math.PI * 2);
-      target.fill();
-
-      if (f.r > 3) {
-        target.strokeStyle = 'rgba(255,255,255,' + f.a * 0.35 + ')';
-        target.lineWidth = 1;
-        target.beginPath();
-        target.moveTo(x - f.r * 1.8, y);
-        target.lineTo(x + f.r * 1.8, y);
-        target.moveTo(x, y - f.r * 1.8);
-        target.lineTo(x, y + f.r * 1.8);
-        target.stroke();
-      }
-    }
-  }
-
-  function updateFlakes() {
+  function drawFlakes() {
     for (var i = 0; i < flakes.length; i += 1) {
       var f = flakes[i];
       f.phase += 0.006;
@@ -136,16 +98,31 @@
       }
       if (f.x < -20) f.x = width + 20;
       if (f.x > width + 20) f.x = -20;
+
+      var x = f.x + mouse.x * (f.r / 8);
+      var y = f.y + mouse.y * (f.r / 10);
+      ctx.fillStyle = 'rgba(255,255,255,' + f.a + ')';
+      ctx.beginPath();
+      ctx.arc(x, y, f.r, 0, Math.PI * 2);
+      ctx.fill();
+
+      if (f.r > 3) {
+        ctx.strokeStyle = 'rgba(255,255,255,' + f.a * 0.35 + ')';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(x - f.r * 1.8, y);
+        ctx.lineTo(x + f.r * 1.8, y);
+        ctx.moveTo(x, y - f.r * 1.8);
+        ctx.lineTo(x, y + f.r * 1.8);
+        ctx.stroke();
+      }
     }
   }
 
   function frame(time) {
-    updateFlakes();
-    contexts.forEach(function (target) {
-      target.clearRect(0, 0, width, height);
-      drawGlints(target, time);
-      drawFlakes(target);
-    });
+    ctx.clearRect(0, 0, width, height);
+    drawGlints(time);
+    drawFlakes();
     window.requestAnimationFrame(frame);
   }
 
