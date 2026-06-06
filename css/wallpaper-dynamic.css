@@ -1,0 +1,63 @@
+#web_bg {
+  overflow: hidden;
+  background-image: url("/pic/wallpaper-preview.jpg") !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
+#web_bg::after {
+  position: fixed;
+  inset: 0;
+  z-index: -997;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(circle at 22% 14%, rgba(255, 255, 255, 0.24), transparent 22%),
+    radial-gradient(circle at 78% 18%, rgba(141, 190, 255, 0.2), transparent 28%),
+    linear-gradient(180deg, rgba(17, 58, 114, 0.05), rgba(255, 255, 255, 0.11));
+  mix-blend-mode: screen;
+}
+
+#wallpaper-dynamic-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -996;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+
+#page-header.full_page {
+  overflow: hidden;
+  background-image: url("/pic/wallpaper-preview.jpg") !important;
+  background-position: center center !important;
+  background-size: cover !important;
+}
+
+#wallpaper-hero-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+#page-header:not(.not-top-img)::before {
+  z-index: 2;
+  pointer-events: none;
+}
+
+#page-header.full_page #nav,
+#page-header.full_page #site-info,
+#page-header.full_page #scroll-down {
+  z-index: 3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #wallpaper-dynamic-canvas,
+  #wallpaper-hero-canvas {
+    display: none;
+  }
+}
